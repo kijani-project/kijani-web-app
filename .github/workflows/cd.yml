@@ -41,4 +41,4 @@ jobs:
         run: rsync -a ./dist server:~/var/www/html/
 
       - name: Build the stack
-        run: ssh server 'sudo docker-compose pull; sudo docker-compose up -d --remove-orphans; sudo docker image prune -f'
+        run: ssh server 'sudo docker-compose -f ~/var/www/html/docker-compose.yml pull; sudo docker-compose -f ~/var/www/html/docker-compose.yml up -d --remove-orphans; sudo docker -f ~/var/www/html/docker-compose.yml image prune -f'
