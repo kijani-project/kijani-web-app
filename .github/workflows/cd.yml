@@ -35,10 +35,10 @@ jobs:
           EOF
 
       - name: Push docker compose to remote host
-        run: rsync -e ssh ./docker-compose.yml server:~/var/www/html/
+        run: rsync -e ssh ./docker-compose.yml server:~/etc/
         
       - name: Push dist folder
-        run: rsync -a ./dist server:~/var/www/html/
+        run: rsync -a ./dist server:~/etc/
 
       - name: Build the stack
-        run: ssh server 'sudo docker-compose -f ~/var/www/html/docker-compose.yml pull; sudo docker-compose -f ~/var/www/html/docker-compose.yml up -d --remove-orphans; sudo docker -f ~/var/www/html/docker-compose.yml image prune -f'
+        run: ssh server 'sudo docker-compose -f ~/etc/docker-compose.yml pull; sudo docker-compose -f ~/etc/docker-compose.yml up -d --remove-orphans; sudo docker -f ~/etc/docker-compose.yml image prune -f'
