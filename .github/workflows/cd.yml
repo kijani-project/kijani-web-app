@@ -38,7 +38,7 @@ jobs:
         run: rsync -e ssh ./docker-compose.yml server:~/
         
       - name: Push dist folder
-        run: rsync -a -e --no-p --no-g --chmod=ugo=rwX ssh ./dist server:~/
+        run: rsync -a -e "ssh" --rsync-path="sudo rsync" rsync server:./dist /
 
       - name: Build the stack
         run: ssh server 'sudo docker-compose pull; sudo docker-compose up -d --remove-orphans; sudo docker image prune -f'
