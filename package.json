@@ -1,16 +1,16 @@
 {
-  "name": "frontend-starter-boilerplate-v2",
-  "description": "Webpack, Sass, Bootstrap, Html, Boilerplate, BrowserSync",
+  "name": "kijani-web-app",
+  "description": "",
   "keywords": [],
-  "version": "2.1.0",
-  "author": "Ali Hosseini",
-  "license": "MIT",
+  "version": "1.0.0",
+  "author": "kijani-project",
+  "license": "",
   "repository": {
     "type": "git",
-    "url": "https://github.com/smarteist/Frontent-Starter-Boilerplate.git"
+    "url": "https://github.com/kijani-project/kijani-web-app"
   },
   "bugs": {
-    "url": "https://github.com/smarteist/Frontent-Starter-Boilerplate/issues"
+    "url": "https://github.com/kijani-project/kijani-web-app/issues"
   },
   "scripts": {
     "start": "webpack --mode=development --watch",
