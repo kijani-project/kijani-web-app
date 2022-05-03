@@ -5,5 +5,4 @@ services:
       - "80:80"
     volumes:
       - ./tmp/dist/:/usr/share/nginx/html
-      - ./tmp/nginx.conf:/etc/nginx/conf.d/nginx.conf
     restart: unless-stopped
