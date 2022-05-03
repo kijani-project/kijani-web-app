@@ -4,6 +4,6 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./var/www/html/:/usr/share/nginx/html
-      - ./etc/nginx/conf.d/nginx.conf:/etc/nginx/conf.d/nginx.conf
+      - ./tmp/dist/:/usr/share/nginx/html
+      - ./tmp/nginx.conf:/etc/nginx/conf.d/nginx.conf
     restart: unless-stopped
