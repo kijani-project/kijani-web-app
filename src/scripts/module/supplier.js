@@ -2,7 +2,6 @@
 apiUrl = restApi + "/products";
 
 async function getapi(apiUrl) {
-
   // Storing response
   const response = await fetch(apiUrl);
 
@@ -23,10 +22,8 @@ function show(data) {
         <th scope="col">#</th>
         <th scope="col">Navn</th>
         <th scope="col">Beskrivelse</th>
-        <th scope="col">Leverandør</th>
         <th scope="col">Vare nr.</th>
         <th scope="col">Miljømærke</th>
-        <th scope="col">Billede</th>
         <th scope="col">Ref.</th>
      </tr>`;
 
@@ -35,11 +32,9 @@ function show(data) {
     tab += `<tr>
     <td>${r.productId} </td>
     <td>${r.name}</td>
-    <td>${r.supplier}</td>
     <td>${r.description}</td>
-    <td>${r.number} </td>
-    <td>${r.certificate}</td>
-    <td>${r.picture}</td>
+    <td>${r.itemNumber} </td>
+    <td>${r.ecolabels}</td>
     <td>${r.link}</td>
 </tr>`;
   }

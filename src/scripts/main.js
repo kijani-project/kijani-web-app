@@ -8,3 +8,8 @@ import 'src/scripts/vendor/bootstrap'
 if (document.querySelectorAll("#supplier").length) {
   import("src/scripts/module/supplier")
 }
+
+if (document.querySelectorAll("#supplier-post-save").length) {
+  import("src/scripts/module/supplier-post")
+}
+
