@@ -28,7 +28,7 @@ ${ require('./partials/footer.html') }
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Opret produkt</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -72,7 +72,7 @@ ${ require('./partials/footer.html') }
 
           <div class="mb-3">
             <label for="supplier-item-number" class="col-form-label">Vare nr.</label>
-            <input type="text" class="form-control" id="supplier-item-number">
+            <input type="text" inputmode="numeric" class="form-control" id="supplier-item-number">
           </div>
           <div class="mb-3">
             <label for="supplier-product-id" class="col-form-label">Produkt navn</label>
@@ -105,17 +105,6 @@ ${ require('./partials/footer.html') }
             <label for="supplier-co2-measurability" class="col-form-label">CO2 målbarhed</label>
             <input type="text" class="form-control" id="supplier-co2-measurability">
           </div>
-
-          <div class="mb-3">
-            <label for="supplier-tests" class="col-form-label">Tests</label>
-            <input type="text" class="form-control" id="supplier-tests">
-          </div>
-
-          <div class="mb-3">
-            <label for="supplier-comments" class="col-form-label">Bemærkninger</label>
-            <input type="text" class="form-control" id="supplier-comments">
-          </div>
-
           <div class="mb-3">
             <label for="supplier-link" class="col-form-label">Link</label>
             <input type="text" class="form-control" id="supplier-link">
