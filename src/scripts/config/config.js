@@ -1,1 +1,1 @@
-restApi = "http://localhost:8282";
+restApi = "http://20.224.78.65";
