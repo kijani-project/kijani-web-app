@@ -2,7 +2,6 @@
 apiUrl = restApi + "/products";
 
 async function getapi(apiUrl) {
-
   // Storing response
   const response = await fetch(apiUrl);
 
@@ -35,10 +34,10 @@ function show(data) {
     tab += `<tr>
     <td>${r.productId} </td>
     <td>${r.name}</td>
-    <td>${r.supplier}</td>
+    <td>${r.supplierId}</td>
     <td>${r.description}</td>
-    <td>${r.number} </td>
-    <td>${r.certificate}</td>
+    <td>${r.itemNumber} </td>
+    <td>${r.ecolabels}</td>
     <td>${r.picture}</td>
     <td>${r.link}</td>
 </tr>`;

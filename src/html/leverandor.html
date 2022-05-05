@@ -14,7 +14,9 @@ ${ require('src/html/partials/header.html') }
   <div class="container">
     <h1 class="mt-5 mb-5">{Leverandør navn}</h1>
 
-    <button class="btn btn-primary mb-3" type="submit">Tilføje vare</button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            data-bs-whatever="@mdo">Tilføj produkt
+    </button>
 
     <table class="table table-sm" id="supplier"></table>
   </div>
@@ -22,5 +24,113 @@ ${ require('src/html/partials/header.html') }
 
 ${ require('./partials/footer.html') }
 
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+
+          <div class="dropdown mb-2">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="supplier-category"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+              Kategori
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="supplier-category">
+              <li>
+                <button class="dropdown-item" type="button">Belysning</button>
+              </li>
+              <li>
+                <button class="dropdown-item" type="button">Skriveborde</button>
+              </li>
+              <li>
+                <button class="dropdown-item" type="button">Kontorstole</button>
+              </li>
+            </ul>
+          </div>
+
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="supplier-subcategory"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+              Underkategori
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="supplier-subcategory">
+              <li>
+                <button class="dropdown-item" type="button">Belysning</button>
+              </li>
+              <li>
+                <button class="dropdown-item" type="button">Skriveborde</button>
+              </li>
+              <li>
+                <button class="dropdown-item" type="button">Kontorstole</button>
+              </li>
+            </ul>
+          </div>
+
+          <div class="mb-3">
+            <label for="supplier-item-number" class="col-form-label">Vare nr.</label>
+            <input type="text" class="form-control" id="supplier-item-number">
+          </div>
+          <div class="mb-3">
+            <label for="supplier-product-id" class="col-form-label">Produkt navn</label>
+            <input type="text" class="form-control" id="supplier-product-id">
+          </div>
+          <div class="mb-3">
+            <label for="supplier-product-description" class="col-form-label">Produkt beskrivelse</label>
+            <input type="text" class="form-control" id="supplier-product-description">
+          </div>
+
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="supplier-ecolabels"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+              Ecolabels
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="supplier-ecolabels">
+              <li>
+                <button class="dropdown-item" type="button">1</button>
+              </li>
+              <li>
+                <button class="dropdown-item" type="button">2</button>
+              </li>
+              <li>
+                <button class="dropdown-item" type="button">3</button>
+              </li>
+            </ul>
+          </div>
+
+          <div class="mb-3">
+            <label for="supplier-co2-measurability" class="col-form-label">CO2 målbarhed</label>
+            <input type="text" class="form-control" id="supplier-co2-measurability">
+          </div>
+
+          <div class="mb-3">
+            <label for="supplier-tests" class="col-form-label">Tests</label>
+            <input type="text" class="form-control" id="supplier-tests">
+          </div>
+
+          <div class="mb-3">
+            <label for="supplier-comments" class="col-form-label">Bemærkninger</label>
+            <input type="text" class="form-control" id="supplier-comments">
+          </div>
+
+          <div class="mb-3">
+            <label for="supplier-link" class="col-form-label">Link</label>
+            <input type="text" class="form-control" id="supplier-link">
+          </div>
+
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="supplier-post-save" data-bs-dismiss="modal">Save changes</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 </body>
 </html>
