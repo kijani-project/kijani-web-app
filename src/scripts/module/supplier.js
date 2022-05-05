@@ -1,10 +1,10 @@
 // api url
-//let api_url = "http://localhost:8282/products";
+apiUrl = restApi + "/products";
 
-async function getapi() {
+async function getapi(apiUrl) {
 
   // Storing response
-  const response = await fetch("http://localhost:8282/products");
+  const response = await fetch(apiUrl);
 
   // Storing data in form of JSON
   let data = await response.json();
@@ -15,7 +15,7 @@ async function getapi() {
 // Defining async function
 
 // Calling that async function
-getapi();
+getapi(apiUrl);
 
 // Function to define innerHTML for HTML table
 function show(data) {
