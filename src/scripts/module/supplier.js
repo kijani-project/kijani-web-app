@@ -19,8 +19,7 @@ getapi(apiUrl);
 
 // Function to define innerHTML for HTML table
 function show(data) {
-  let tab =
-    `<tr>
+  let tab = `<tr>
         <th scope="col">#</th>
         <th scope="col">Navn</th>
         <th scope="col">Beskrivelse</th>
