@@ -25,6 +25,8 @@ function show(data) {
         <th scope="col">Vare nr.</th>
         <th scope="col">Miljømærke</th>
         <th scope="col">Ref.</th>
+        <th scope="col">Rediger</th>
+        <th scope="col">Slet</th>
      </tr>`;
 
   // Loop to access all rows
@@ -36,6 +38,8 @@ function show(data) {
     <td>${r.itemNumber} </td>
     <td>${r.ecolabels}</td>
     <td>${r.link}</td>
+    <td><button type="button" class="btn btn-primary">Rediger</button></td>
+    <td><button type="button" class="btn btn-danger">Slet</button></td>
 </tr>`;
   }
 
