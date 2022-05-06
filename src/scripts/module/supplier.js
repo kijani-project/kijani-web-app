@@ -1,7 +1,18 @@
-// api url
-apiUrl = restApi + "/products";
+// Product API endpoint
+const productEndpoint = restApi + "/products";
 
-async function getapi(apiUrl) {
+const productTable = document.getElementById("supplier");
+
+const supplierProductDescription = document.getElementById("supplier-product-description");
+const supplierProductId = document.getElementById("supplier-product-id");
+const supplierItemNumber = document.getElementById("supplier-item-number");
+const supplierEcolabels = document.getElementById("supplier-ecolabels");
+const supplierLink = document.getElementById("supplier-link");
+
+const saveProductBtn = document.getElementById("supplier-post-save");
+
+
+async function showTable(apiUrl) {
   // Storing response
   const response = await fetch(apiUrl);
 
@@ -11,14 +22,11 @@ async function getapi(apiUrl) {
   show(data);
 }
 
-// Defining async function
-
-// Calling that async function
-getapi(apiUrl);
-
-// Function to define innerHTML for HTML table
+/**
+ * Create innerHTML of table
+ */
 function show(data) {
-  let tab = `<tr>
+  let table = `<tr>
         <th scope="col">#</th>
         <th scope="col">Navn</th>
         <th scope="col">Beskrivelse</th>
@@ -31,8 +39,8 @@ function show(data) {
 
   // Loop to access all rows
   for (let r of data) {
-    tab += `<tr>
-    <td>${r.productId} </td>
+    table += `<tr>
+    <td>${r.productId}</td>
     <td>${r.name}</td>
     <td>${r.description}</td>
     <td>${r.itemNumber} </td>
@@ -43,6 +51,39 @@ function show(data) {
 </tr>`;
   }
 
-  // Setting innerHTML as tab variable
-  document.getElementById("supplier").innerHTML = tab;
+  productTable.innerHTML = table;
 }
+
+/**
+ * Create new product
+ */
+function createProduct(data) {
+  const header = {
+    'Accept': 'application/json', 'Content-type': 'application/json'
+  }
+  fetch(productEndpoint, {
+    method: 'POST', headers: header, body: JSON.stringify(data)
+  }).then(response => response.json());
+}
+
+/**
+ * Do create product on click event
+ */
+saveProductBtn.addEventListener("click", () => {
+  let data = {
+    name: supplierProductId.value,
+    description: supplierProductDescription.value,
+    itemNumber: supplierItemNumber.value,
+    ecolabels: supplierEcolabels.value,
+    link: supplierLink.value
+  }
+
+  // Add product to database
+  createProduct(data)
+
+  // Refresh table
+  showTable(productEndpoint);
+});
+
+// Generate table on page load
+showTable(productEndpoint);
