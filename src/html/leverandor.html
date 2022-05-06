@@ -14,8 +14,8 @@ ${ require('src/html/partials/header.html') }
   <div class="container">
     <h1 class="mt-7 mb-7">{Leverandør navn}</h1>
 
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-            data-bs-whatever="@mdo">Tilføj produkt
+    <button class="btn btn-primary" data-bs-target="#exampleModal" data-bs-toggle="modal" data-bs-whatever="@mdo"
+            type="button">Tilføj produkt
     </button>
 
     <table class="table table-sm" id="supplier"></table>
@@ -24,22 +24,22 @@ ${ require('src/html/partials/header.html') }
 
 ${ require('./partials/footer.html') }
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="exampleModal" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Opret produkt</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
       </div>
       <div class="modal-body">
         <form>
 
           <div class="dropdown mb-2">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="supplier-category"
-                    data-bs-toggle="dropdown" aria-expanded="false">
+            <button aria-expanded="false" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
+                    id="supplier-category" type="button">
               Kategori
             </button>
-            <ul class="dropdown-menu" aria-labelledby="supplier-category">
+            <ul aria-labelledby="supplier-category" class="dropdown-menu">
               <li>
                 <button class="dropdown-item" type="button">Belysning</button>
               </li>
@@ -53,11 +53,11 @@ ${ require('./partials/footer.html') }
           </div>
 
           <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="supplier-subcategory"
-                    data-bs-toggle="dropdown" aria-expanded="false">
+            <button aria-expanded="false" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
+                    id="supplier-subcategory" type="button">
               Underkategori
             </button>
-            <ul class="dropdown-menu" aria-labelledby="supplier-subcategory">
+            <ul aria-labelledby="supplier-subcategory" class="dropdown-menu">
               <li>
                 <button class="dropdown-item" type="button">Belysning</button>
               </li>
@@ -71,24 +71,24 @@ ${ require('./partials/footer.html') }
           </div>
 
           <div class="mb-3">
-            <label for="supplier-item-number" class="col-form-label">Vare nr.</label>
-            <input type="text" inputmode="numeric" class="form-control" id="supplier-item-number">
+            <label class="col-form-label" for="supplier-item-number">Vare nr.</label>
+            <input class="form-control" id="supplier-item-number" inputmode="numeric" type="text">
           </div>
           <div class="mb-3">
-            <label for="supplier-product-id" class="col-form-label">Produkt navn</label>
-            <input type="text" class="form-control" id="supplier-product-id">
+            <label class="col-form-label" for="supplier-product-id">Produkt navn</label>
+            <input class="form-control" id="supplier-product-id" type="text">
           </div>
           <div class="mb-3">
-            <label for="supplier-product-description" class="col-form-label">Produkt beskrivelse</label>
-            <input type="text" class="form-control" id="supplier-product-description">
+            <label class="col-form-label" for="supplier-product-description">Produkt beskrivelse</label>
+            <input class="form-control" id="supplier-product-description" type="text">
           </div>
 
           <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="supplier-ecolabels"
-                    data-bs-toggle="dropdown" aria-expanded="false">
+            <button aria-expanded="false" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
+                    id="supplier-ecolabels" type="button">
               Ecolabels
             </button>
-            <ul class="dropdown-menu" aria-labelledby="supplier-ecolabels">
+            <ul aria-labelledby="supplier-ecolabels" class="dropdown-menu">
               <li>
                 <button class="dropdown-item" type="button">1</button>
               </li>
@@ -102,32 +102,26 @@ ${ require('./partials/footer.html') }
           </div>
 
           <div class="mb-3">
-            <label for="supplier-co2-measurability" class="col-form-label">CO2 målbarhed</label>
-            <input type="text" class="form-control" id="supplier-co2-measurability">
+            <label class="col-form-label" for="supplier-co2-measurability">CO2 målbarhed</label>
+            <input class="form-control" id="supplier-co2-measurability" type="text">
           </div>
           <div class="mb-3">
-            <label for="supplier-link" class="col-form-label">Link</label>
-            <input type="text" class="form-control" id="supplier-link">
-          </div>
-
-          <div class="mb-3">
-            <label for="supplier-image" class="col-form-label">Image</label>
-            <input type="text" class="form-control" id="supplier-image">
+            <label class="col-form-label" for="supplier-link">Link</label>
+            <input class="form-control" id="supplier-link" type="text">
           </div>
 
           <div class="mb-3">
-            <label for="supplier-button-rediger" class="col-form-label">Rediger</label>
-           <input  type="button" class="btn btn-primary" id="supplier-button-rediger">
+            <label class="col-form-label" for="supplier-image">Image</label>
+            <input class="form-control" id="supplier-image" type="text">
           </div>
 
         </form>
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-
-        <button type="button"onclick="window.location.reload();" class="btn btn-primary" id="supplier-post-save" data-bs-dismiss="modal">Save changes</button>
-        <button type="button" class="btn btn-primary" id="supplier-post-save" data-bs-dismiss="modal">Save changes</button>
+        <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
+        <button class="btn btn-primary" data-bs-dismiss="modal" id="supplier-post-save" type="button">Save changes
+        </button>
       </div>
 
     </div>
