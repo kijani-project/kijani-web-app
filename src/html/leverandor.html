@@ -14,7 +14,7 @@ ${ require('src/html/partials/header.html') }
   <div class="container">
     <h1 class="mt-7 mb-7">{Leverandør navn}</h1>
 
-    <button class="btn btn-primary" data-bs-target="#exampleModal" data-bs-toggle="modal" data-bs-whatever="@mdo"
+    <button class="btn btn-primary" data-bs-target="#exampleModal" data-bs-toggle="modal"
             type="button">Tilføj produkt
     </button>
 
@@ -103,5 +103,89 @@ ${ require('./partials/footer.html') }
     </div>
   </div>
 </div>
+
+
+<div aria-hidden="true" aria-labelledby="supplier-update-product-label" class="modal fade" id="supplier-update-product"
+     tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="supplier-update-product-label">Opret produkt</h5>
+        <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+
+          <div class="mb-3">
+            <label class="col-form-label" for="supplier-category">Kategori:</label>
+            <select class="form-select" id="supplier-update-category">
+              <option value="1">Skriveborde</option>
+              <option value="2">Belysning</option>
+              <option value="3">Kontorstole</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="col-form-label" for="supplier-subcategory">Underkategori:</label>
+            <select class="form-select" id="supplier-update-subcategory">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="col-form-label" for="supplier-item-number">Vare nr.</label>
+            <input class="form-control" id="supplier-update-item-number" inputmode="numeric" type="text">
+          </div>
+
+          <div class="mb-3">
+            <label class="col-form-label" for="supplier-product-id">Produkt navn</label>
+            <input class="form-control" id="supplier-update-product-id" type="text">
+          </div>
+
+          <div class="mb-3">
+            <label class="col-form-label" for="supplier-product-description">Produkt beskrivelse</label>
+            <input class="form-control" id="supplier-update-product-description" type="text">
+          </div>
+
+          <div class="mb-3">
+            <label class="col-form-label" for="supplier-ecolabels">Underkategori:</label>
+            <select class="form-select" id="supplier-update-ecolabels">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="col-form-label" for="supplier-co2-measurability">CO2 målbarhed</label>
+            <input class="form-control" id="supplier-update-co2-measurability" type="text">
+          </div>
+
+          <div class="mb-3">
+            <label class="col-form-label" for="supplier-link">Link</label>
+            <input class="form-control" id="supplier-update-link" type="text">
+          </div>
+
+          <div class="mb-3">
+            <label class="col-form-label" for="supplier-image">Image</label>
+            <input class="form-control" id="supplier-update-image" type="text">
+          </div>
+
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
+        <button class="btn btn-primary" data-bs-dismiss="modal" id="supplier-update-save" type="button">Save changes
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
 </body>
 </html>
