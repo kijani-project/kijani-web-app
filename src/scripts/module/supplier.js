@@ -45,28 +45,54 @@ function deleteButton() {
   }));
 }
 
+function getRowId(el) {
+  let productId = el.parentElement.closest("tr").id;
+  return productId.split("-").slice(-1).pop(); // GET ID
+}
+
 /**
  * Delete button event listener
  */
 function editButton() {
-  const deleteButtons = document.querySelectorAll('.edit-product');
+  const editProductBtn = document.querySelectorAll('.edit-product');
 
   // Trigger the edit button
-  deleteButtons.forEach(el => el.addEventListener('click', async () => {
-    let productId = el.parentElement.closest("tr").id;
+  editProductBtn.forEach(el => el.addEventListener('click', async () => {
+    let productId = getRowId(el);
 
-    let rowId = productId.split("-").slice(-1).pop();
+    let productName = document.getElementById("supplier-update-product-id"); // product name: TODO rename
+    let productDesc = document.getElementById("supplier-update-product-description");
+    let itemNumber = document.getElementById("supplier-update-item-number");
+    let co2Measurebility = document.getElementById("supplier-update-co2-measurability");
+    let link = document.getElementById("supplier-update-link");
+    let image = document.getElementById("supplier-update-image");
 
-    const data = {
-      productId: rowId,
-      name: supplierProductId.value,
-      description: supplierProductDescription.value,
-      itemNumber: supplierItemNumber.value,
-      ecolabels: supplierEcolabels.value,
-      link: supplierLink.value
-    }
+    let currentData = await new HttpClient(productEndpoint + "/" + productId).get();
 
-    await editProduct(data);
+    productName.value = currentData.name;
+    productDesc.value = currentData.description;
+    itemNumber.value = currentData.itemNumber;
+    co2Measurebility.value = currentData.co2Measurebility;
+    link.value = currentData.link;
+    image.value = currentData.picture;
+
+    const updateProductBtn = document.getElementById("supplier-update-save");
+
+    updateProductBtn.addEventListener("click", async () => {
+
+      let data = {
+        productId: productId,
+        name: productName.value,
+        description: productDesc.value,
+        itemNumber: itemNumber.value,
+        co2Measurebility: co2Measurebility.value,
+        link: link.value,
+        picture: image.value
+      }
+
+      // Add product to database
+      await updateProduct(data)
+    });
   }));
 }
 
@@ -96,7 +122,7 @@ function createTable(data) {
     <td>${row.link}</td>
     <td>
       <button type="button" class="btn btn-danger mx-2 pull-right delete-product">Slet</button>
-      <button type="button" class="btn btn-primary pull-right edit-product">Redigér</button>
+      <button type="button" data-bs-target="#supplier-update-product" data-bs-toggle="modal" class="btn btn-primary pull-right edit-product">Redigér</button>
     </td>
 </tr>`;
   }
@@ -115,12 +141,6 @@ async function deleteProduct(id) {
   await updateTable();
 }
 
-async function editProduct(data) {
-  await new HttpClient(productEndpoint + '/' + data.id).put(data);
-
-  await updateTable();
-}
-
 /**
  * Create Product
  * @param data
@@ -128,6 +148,12 @@ async function editProduct(data) {
  */
 async function createProduct(data) {
   await new HttpClient(productEndpoint).post(data);
+
+  await updateTable();
+}
+
+async function updateProduct(data) {
+  await new HttpClient(productEndpoint + "/" + data.productId).put(data);
 
   await updateTable();
 }
