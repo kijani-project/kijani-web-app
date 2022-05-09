@@ -1,3 +1,5 @@
+import {HttpClient} from "src/scripts/module/HttpClient";
+
 // Product API endpoint
 const productEndpoint = restApi + "/products";
 
@@ -11,21 +13,68 @@ const supplierLink = document.getElementById("supplier-link");
 
 const saveProductBtn = document.getElementById("supplier-post-save");
 
+/**
+ * Show table
+ * @returns {Promise<void>}
+ */
+async function updateTable() {
 
-async function showTable(apiUrl) {
-  // Storing response
-  const response = await fetch(apiUrl);
+  const data = await new HttpClient(productEndpoint).get();
+  createTable(data);
 
-  // Storing data in form of JSON
-  let data = await response.json();
+  // Delete button eventlister
+  deleteButton();
 
-  show(data);
+  // Edit button eventlister
+  editButton();
 }
 
 /**
- * Create innerHTML of table
+ * Delete button event listener
  */
-function show(data) {
+function deleteButton() {
+  const deleteButtons = document.querySelectorAll('.delete-product');
+
+  // Trigger the delete button
+  deleteButtons.forEach(el => el.addEventListener('click', async () => {
+    let productId = el.parentElement.closest("tr").id;
+
+    let rowId = productId.split("-").slice(-1).pop();
+
+    await deleteProduct(rowId);
+  }));
+}
+
+/**
+ * Delete button event listener
+ */
+function editButton() {
+  const deleteButtons = document.querySelectorAll('.edit-product');
+
+  // Trigger the edit button
+  deleteButtons.forEach(el => el.addEventListener('click', async () => {
+    let productId = el.parentElement.closest("tr").id;
+
+    let rowId = productId.split("-").slice(-1).pop();
+
+    const data = {
+      productId: rowId,
+      name: supplierProductId.value,
+      description: supplierProductDescription.value,
+      itemNumber: supplierItemNumber.value,
+      ecolabels: supplierEcolabels.value,
+      link: supplierLink.value
+    }
+
+    await editProduct(data);
+  }));
+}
+
+/**
+ * Build the table from a JSON object
+ * @param data
+ */
+function createTable(data) {
   let table = `<tr>
         <th scope="col">#</th>
         <th scope="col">Navn</th>
@@ -33,21 +82,22 @@ function show(data) {
         <th scope="col">Vare nr.</th>
         <th scope="col">Miljømærke</th>
         <th scope="col">Ref.</th>
-        <th scope="col">Rediger</th>
-        <th scope="col">Slet</th>
+        <th scope="col"></th>
      </tr>`;
 
   // Loop to access all rows
-  for (let r of data) {
-    table += `<tr>
-    <td>${r.productId}</td>
-    <td>${r.name}</td>
-    <td>${r.description}</td>
-    <td>${r.itemNumber} </td>
-    <td>${r.ecolabels}</td>
-    <td>${r.link}</td>
-    <td><button type="button" class="btn btn-primary">Rediger</button></td>
-    <td><button type="button" class="btn btn-danger">Slet</button></td>
+  for (let row of data) {
+    table += `<tr id="supplier-id-${row.productId}">
+    <td>${row.productId}</td>
+    <td>${row.name}</td>
+    <td>${row.description}</td>
+    <td>${row.itemNumber} </td>
+    <td>${row.ecolabels}</td>
+    <td>${row.link}</td>
+    <td>
+      <button type="button" class="btn btn-danger mx-2 pull-right delete-product">Slet</button>
+      <button type="button" class="btn btn-primary pull-right edit-product">Redigér</button>
+    </td>
 </tr>`;
   }
 
@@ -55,22 +105,38 @@ function show(data) {
 }
 
 /**
- * Create new product
+ * Delete product by ID
+ * @param id
+ * @returns {Promise<void>}
  */
-function createProduct(data) {
-  const header = {
-    'Accept': 'application/json', 'Content-type': 'application/json'
-  }
-  fetch(productEndpoint, {
-    method: 'POST', headers: header, body: JSON.stringify(data)
-  }).then(response => response.json());
+async function deleteProduct(id) {
+  await new HttpClient(productEndpoint + '/' + id).delete();
+
+  await updateTable();
+}
+
+async function editProduct(data) {
+  await new HttpClient(productEndpoint + '/' + data.id).put(data);
+
+  await updateTable();
 }
 
 /**
- * Do create product on click event
+ * Create Product
+ * @param data
+ * @returns {Promise<void>}
  */
-saveProductBtn.addEventListener("click", () => {
-  let data = {
+async function createProduct(data) {
+  await new HttpClient(productEndpoint).post(data);
+
+  await updateTable();
+}
+
+/**
+ * Save product when the form is submitted
+ */
+saveProductBtn.addEventListener("click", async () => {
+  const data = {
     name: supplierProductId.value,
     description: supplierProductDescription.value,
     itemNumber: supplierItemNumber.value,
@@ -79,11 +145,12 @@ saveProductBtn.addEventListener("click", () => {
   }
 
   // Add product to database
-  createProduct(data)
-
-  // Refresh table
-  showTable(productEndpoint);
+  await createProduct(data)
 });
 
-// Generate table on page load
-showTable(productEndpoint);
+/**
+ * Build table on page load
+ */
+window.addEventListener("load", async () => {
+  await updateTable();
+});

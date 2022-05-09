@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="da">
 <head>
   <title>Frontend Starter</title>
   <meta content="" name="description">
@@ -34,77 +34,53 @@ ${ require('./partials/footer.html') }
       <div class="modal-body">
         <form>
 
-          <div class="dropdown mb-2">
-            <button aria-expanded="false" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
-                    id="supplier-category" type="button">
-              Kategori
-            </button>
-            <ul aria-labelledby="supplier-category" class="dropdown-menu">
-              <li>
-                <button class="dropdown-item" type="button">Belysning</button>
-              </li>
-              <li>
-                <button class="dropdown-item" type="button">Skriveborde</button>
-              </li>
-              <li>
-                <button class="dropdown-item" type="button">Kontorstole</button>
-              </li>
-            </ul>
+          <div class="mb-3">
+            <label class="col-form-label" for="supplier-category">Kategori:</label>
+            <select class="form-select" id="supplier-category">
+              <option value="1">Skriveborde</option>
+              <option value="2">Belysning</option>
+              <option value="3">Kontorstole</option>
+            </select>
           </div>
 
-          <div class="dropdown">
-            <button aria-expanded="false" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
-                    id="supplier-subcategory" type="button">
-              Underkategori
-            </button>
-            <ul aria-labelledby="supplier-subcategory" class="dropdown-menu">
-              <li>
-                <button class="dropdown-item" type="button">Belysning</button>
-              </li>
-              <li>
-                <button class="dropdown-item" type="button">Skriveborde</button>
-              </li>
-              <li>
-                <button class="dropdown-item" type="button">Kontorstole</button>
-              </li>
-            </ul>
+          <div class="mb-3">
+            <label class="col-form-label" for="supplier-subcategory">Underkategori:</label>
+            <select class="form-select" id="supplier-subcategory">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
           </div>
 
           <div class="mb-3">
             <label class="col-form-label" for="supplier-item-number">Vare nr.</label>
             <input class="form-control" id="supplier-item-number" inputmode="numeric" type="text">
           </div>
+
           <div class="mb-3">
             <label class="col-form-label" for="supplier-product-id">Produkt navn</label>
             <input class="form-control" id="supplier-product-id" type="text">
           </div>
+
           <div class="mb-3">
             <label class="col-form-label" for="supplier-product-description">Produkt beskrivelse</label>
             <input class="form-control" id="supplier-product-description" type="text">
           </div>
 
-          <div class="dropdown">
-            <button aria-expanded="false" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
-                    id="supplier-ecolabels" type="button">
-              Ecolabels
-            </button>
-            <ul aria-labelledby="supplier-ecolabels" class="dropdown-menu">
-              <li>
-                <button class="dropdown-item" type="button">1</button>
-              </li>
-              <li>
-                <button class="dropdown-item" type="button">2</button>
-              </li>
-              <li>
-                <button class="dropdown-item" type="button">3</button>
-              </li>
-            </ul>
+          <div class="mb-3">
+            <label class="col-form-label" for="supplier-ecolabels">Underkategori:</label>
+            <select class="form-select" id="supplier-ecolabels">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
           </div>
 
           <div class="mb-3">
             <label class="col-form-label" for="supplier-co2-measurability">CO2 målbarhed</label>
             <input class="form-control" id="supplier-co2-measurability" type="text">
           </div>
+
           <div class="mb-3">
             <label class="col-form-label" for="supplier-link">Link</label>
             <input class="form-control" id="supplier-link" type="text">
