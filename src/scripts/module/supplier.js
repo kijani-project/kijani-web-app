@@ -24,6 +24,9 @@ async function updateTable() {
 
   // Delete button eventlister
   deleteButton();
+
+  // Edit button eventlister
+  editButton();
 }
 
 /**
@@ -39,6 +42,31 @@ function deleteButton() {
     let rowId = productId.split("-").slice(-1).pop();
 
     await deleteProduct(rowId);
+  }));
+}
+
+/**
+ * Delete button event listener
+ */
+function editButton() {
+  const deleteButtons = document.querySelectorAll('.edit-product');
+
+  // Trigger the edit button
+  deleteButtons.forEach(el => el.addEventListener('click', async () => {
+    let productId = el.parentElement.closest("tr").id;
+
+    let rowId = productId.split("-").slice(-1).pop();
+
+    const data = {
+      productId: rowId,
+      name: supplierProductId.value,
+      description: supplierProductDescription.value,
+      itemNumber: supplierItemNumber.value,
+      ecolabels: supplierEcolabels.value,
+      link: supplierLink.value
+    }
+
+    await editProduct(data);
   }));
 }
 
@@ -67,8 +95,8 @@ function createTable(data) {
     <td>${row.ecolabels}</td>
     <td>${row.link}</td>
     <td>
-      <button type="button" class="btn btn-primary pull-right">Redigér</button>
       <button type="button" class="btn btn-danger mx-2 pull-right delete-product">Slet</button>
+      <button type="button" class="btn btn-primary pull-right edit-product">Redigér</button>
     </td>
 </tr>`;
   }
@@ -83,6 +111,12 @@ function createTable(data) {
  */
 async function deleteProduct(id) {
   await new HttpClient(productEndpoint + '/' + id).delete();
+
+  await updateTable();
+}
+
+async function editProduct(data) {
+  await new HttpClient(productEndpoint + '/' + data.id).put(data);
 
   await updateTable();
 }
