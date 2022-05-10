@@ -116,7 +116,7 @@ function createTable(data) {
   for (let row of data) {
     table += `<tr id="supplier-id-${row.productId}" >
     <td>${row.productId}</td>
-    <td><img src="${row.picture}" class="thumbnail" alt="" border=3 height=100 width=100"></td>
+    <td><img src="${row.picture}" class="responsive-image" alt="" border=3 height=70 width=70"></td>
     <td>${row.name}</td>
     <td>${row.description}</td>
     <td>${row.itemNumber} </td>
