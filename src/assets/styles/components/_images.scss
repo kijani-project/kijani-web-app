@@ -1,0 +1,25 @@
+
+.thumbnail:hover {
+  position:relative;
+  top:-25px;
+  left:-35px;
+  width:200px;
+  height:auto;
+  display:inline-block;
+  z-index:999;
+}
+
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.table {
+  background-color: #eee;
+  height: 100%;
+  margin-bottom: 0;
+}
+.table-responsive {
+  height: 100%;
+}
