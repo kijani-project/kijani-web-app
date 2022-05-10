@@ -65,16 +65,16 @@ function editButton() {
     let itemNumber = document.getElementById("supplier-update-item-number");
     let co2Measurebility = document.getElementById("supplier-update-co2-measurability");
     let link = document.getElementById("supplier-update-link");
-    let image = document.getElementById("supplier-update-image");
+    let picture = document.getElementById("supplier-update-image");
 
     let currentData = await new HttpClient(productEndpoint + "/" + productId).get();
 
+    picture.value = currentData.picture;
     productName.value = currentData.name;
     productDesc.value = currentData.description;
     itemNumber.value = currentData.itemNumber;
     co2Measurebility.value = currentData.co2Measurebility;
     link.value = currentData.link;
-    image.value = currentData.image;
 
     const updateProductBtn = document.getElementById("supplier-update-save");
 
@@ -82,12 +82,12 @@ function editButton() {
 
       let data = {
         productId: productId,
+        picture: picture.value,
         name: productName.value,
         description: productDesc.value,
         itemNumber: itemNumber.value,
         co2Measurebility: co2Measurebility.value,
-        link: link.value,
-        image: image.value
+        link: link.value
       }
 
       // Add product to database
@@ -116,7 +116,7 @@ function createTable(data) {
   for (let row of data) {
     table += `<tr id="supplier-id-${row.productId}">
     <td>${row.productId}</td>
-    <td><img src="${row.image}" alt="" border=3 height=100 width=100"></td>
+    <td><img src="${row.picture}" alt="" border=3 height=100 width=100"></td>
     <td>${row.name}</td>
     <td>${row.description}</td>
     <td>${row.itemNumber} </td>
