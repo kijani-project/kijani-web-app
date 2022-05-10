@@ -114,7 +114,7 @@ function createTable(data) {
 
   // Loop to access all rows
   for (let row of data) {
-    table += `<tr id="supplier-id-${row.productId}">
+    table += `<tr id="supplier-id-${row.productId}" >
     <td>${row.productId}</td>
     <td><img src="${row.picture}" class="thumbnail" alt="" border=3 height=100 width=100"></td>
     <td>${row.name}</td>
