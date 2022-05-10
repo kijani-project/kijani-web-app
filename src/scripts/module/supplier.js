@@ -10,7 +10,7 @@ const supplierProductId = document.getElementById("supplier-product-id");
 const supplierItemNumber = document.getElementById("supplier-item-number");
 const supplierEcolabels = document.getElementById("supplier-ecolabels");
 const supplierLink = document.getElementById("supplier-link");
-
+const supplierImage = document.getElementById("supplier-image");
 const saveProductBtn = document.getElementById("supplier-post-save");
 
 /**
@@ -74,7 +74,7 @@ function editButton() {
     itemNumber.value = currentData.itemNumber;
     co2Measurebility.value = currentData.co2Measurebility;
     link.value = currentData.link;
-    image.value = currentData.picture;
+    image.value = currentData.image;
 
     const updateProductBtn = document.getElementById("supplier-update-save");
 
@@ -87,7 +87,7 @@ function editButton() {
         itemNumber: itemNumber.value,
         co2Measurebility: co2Measurebility.value,
         link: link.value,
-        picture: image.value
+        image: image.value
       }
 
       // Add product to database
@@ -103,6 +103,7 @@ function editButton() {
 function createTable(data) {
   let table = `<tr>
         <th scope="col">#</th>
+        <th scope="col">Image</th>
         <th scope="col">Navn</th>
         <th scope="col">Beskrivelse</th>
         <th scope="col">Vare nr.</th>
@@ -115,6 +116,7 @@ function createTable(data) {
   for (let row of data) {
     table += `<tr id="supplier-id-${row.productId}">
     <td>${row.productId}</td>
+    <td><img src="${row.image}" alt="" border=3 height=100 width=100"></td>
     <td>${row.name}</td>
     <td>${row.description}</td>
     <td>${row.itemNumber} </td>
@@ -164,6 +166,7 @@ async function updateProduct(data) {
 saveProductBtn.addEventListener("click", async () => {
   const data = {
     name: supplierProductId.value,
+    image: supplierImage.value,
     description: supplierProductDescription.value,
     itemNumber: supplierItemNumber.value,
     ecolabels: supplierEcolabels.value,
