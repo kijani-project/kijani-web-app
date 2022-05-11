@@ -1,0 +1,13 @@
+.responsive-image {
+  border:3px;
+}
+
+.responsive-image:hover {
+  top:-25px;
+  left:-35px;
+  width:200px;
+  height:auto;
+  display:inline-block;
+  z-index:999; //TODO This have to be removed if not necesesary
+}
+

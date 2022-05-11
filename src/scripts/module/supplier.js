@@ -10,7 +10,7 @@ const supplierProductId = document.getElementById("supplier-product-id");
 const supplierItemNumber = document.getElementById("supplier-item-number");
 const supplierEcolabels = document.getElementById("supplier-ecolabels");
 const supplierLink = document.getElementById("supplier-link");
-
+const supplierImage = document.getElementById("supplier-image");
 const saveProductBtn = document.getElementById("supplier-post-save");
 
 /**
@@ -65,16 +65,16 @@ function editButton() {
     let itemNumber = document.getElementById("supplier-update-item-number");
     let co2Measurebility = document.getElementById("supplier-update-co2-measurability");
     let link = document.getElementById("supplier-update-link");
-    let image = document.getElementById("supplier-update-image");
+    let picture = document.getElementById("supplier-update-image");
 
     let currentData = await new HttpClient(productEndpoint + "/" + productId).get();
 
+    picture.value = currentData.picture;
     productName.value = currentData.name;
     productDesc.value = currentData.description;
     itemNumber.value = currentData.itemNumber;
     co2Measurebility.value = currentData.co2Measurebility;
     link.value = currentData.link;
-    image.value = currentData.picture;
 
     const updateProductBtn = document.getElementById("supplier-update-save");
 
@@ -82,12 +82,12 @@ function editButton() {
 
       let data = {
         productId: productId,
+        picture: picture.value,
         name: productName.value,
         description: productDesc.value,
         itemNumber: itemNumber.value,
         co2Measurebility: co2Measurebility.value,
-        link: link.value,
-        picture: image.value
+        link: link.value
       }
 
       // Add product to database
@@ -103,6 +103,7 @@ function editButton() {
 function createTable(data) {
   let table = `<tr>
         <th scope="col">#</th>
+        <th scope="col">Image</th>
         <th scope="col">Navn</th>
         <th scope="col">Beskrivelse</th>
         <th scope="col">Vare nr.</th>
@@ -113,8 +114,9 @@ function createTable(data) {
 
   // Loop to access all rows
   for (let row of data) {
-    table += `<tr id="supplier-id-${row.productId}">
+    table += `<tr id="supplier-id-${row.productId}" >
     <td>${row.productId}</td>
+    <td><img src="${row.picture}" class="responsive-image" alt="" height=70 width=70"></td>
     <td>${row.name}</td>
     <td>${row.description}</td>
     <td>${row.itemNumber} </td>
@@ -164,6 +166,7 @@ async function updateProduct(data) {
 saveProductBtn.addEventListener("click", async () => {
   const data = {
     name: supplierProductId.value,
+    image: supplierImage.value,
     description: supplierProductDescription.value,
     itemNumber: supplierItemNumber.value,
     ecolabels: supplierEcolabels.value,
