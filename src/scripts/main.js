@@ -9,6 +9,6 @@ if (document.querySelectorAll("#supplier").length) {
   import("src/scripts/module/supplier")
 }
 
-if (document.querySelectorAll("#products").length) {
+if (document.querySelectorAll("#product-page").length) {
   import("src/scripts/module/products")
 }
