@@ -1,3 +1,13 @@
+import {HttpClient} from "src/scripts/module/HttpClient";
+
+const productEndpoint = restApi + "/products";
+
+
+const data = await new HttpClient(productEndpoint).get();
+createTable(data);
+
+console.log("test virker dette")
+
 if (document.readyState === 'loading') {
   window.addEventListener('DOMContentLoaded', () => {
     buildPage();

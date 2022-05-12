@@ -55,7 +55,7 @@ a:hover {
 }
 
 .section-products .single-product:hover .part-1::before {
-  transform: scale(1.2,1.2) rotate(5deg);
+  transform: scale(1.2,1.2) scale(1);
 }
 
 .section-products #product-1 .part-1::before {

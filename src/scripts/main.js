@@ -8,3 +8,7 @@ import 'src/scripts/vendor/bootstrap'
 if (document.querySelectorAll("#supplier").length) {
   import("src/scripts/module/supplier")
 }
+
+if (document.querySelectorAll("#products").length) {
+  import("src/scripts/module/products")
+}
