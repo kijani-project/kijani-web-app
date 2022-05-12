@@ -17,8 +17,8 @@ $cyan: material-color('cyan', 'a400');
 $gray: material-color('grey', '600');
 $gray-dark: material-color('grey', '800');
 
-$primary: material-color('yellow', '900') !default;
-$secondary: material-color('blue', 'a400') !default;
+$primary: material-color('grey', '300') !default;
+$secondary: material-color('grey', '200') !default;
 $success: $green !default;
 $info: $cyan !default;
 $warning: $yellow !default;
@@ -48,3 +48,6 @@ $h2-font-size: $font-size-base * 2;
 $h3-font-size: $font-size-base * 1.75;
 
 $headings-font-weight: $font-weight-bolder;
+
+
+
