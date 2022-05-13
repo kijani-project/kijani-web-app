@@ -64,17 +64,17 @@ function editButton() {
     let productDesc = document.getElementById("supplier-update-product-description");
     let itemNumber = document.getElementById("supplier-update-item-number");
     let co2Measurebility = document.getElementById("supplier-update-co2-measurability");
-    let link = document.getElementById("supplier-update-link");
-    let picture = document.getElementById("supplier-update-image");
+    let brochureLink = document.getElementById("supplier-update-link");
+    let imageLink = document.getElementById("supplier-update-image");
 
     let currentData = await new HttpClient(productEndpoint + "/" + productId).get();
 
-    picture.value = currentData.picture;
+    imageLink.value = currentData.image;
     productName.value = currentData.name;
     productDesc.value = currentData.description;
     itemNumber.value = currentData.itemNumber;
     co2Measurebility.value = currentData.co2Measurebility;
-    link.value = currentData.link;
+    brochureLink.value = currentData.brochureLink;
 
     const updateProductBtn = document.getElementById("supplier-update-save");
 
@@ -82,12 +82,12 @@ function editButton() {
 
       let data = {
         productId: productId,
-        picture: picture.value,
+        imageLink: imageLink.value,
         name: productName.value,
         description: productDesc.value,
         itemNumber: itemNumber.value,
         co2Measurebility: co2Measurebility.value,
-        link: link.value
+        brochureLink: brochureLink.value
       }
 
       // Add product to database
@@ -116,12 +116,12 @@ function createTable(data) {
   for (let row of data) {
     table += `<tr id="supplier-id-${row.productId}" >
     <td>${row.productId}</td>
-    <td><img src="${row.picture}" class="responsive-image" alt="" height=70 width=70"></td>
+    <td><img src="${row.imageLink}" class="responsive-image" alt="" height=70 width=70"></td>
     <td>${row.name}</td>
     <td>${row.description}</td>
     <td>${row.itemNumber} </td>
     <td>${row.ecolabels}</td>
-    <td>${row.link}</td>
+    <td>${row.brochureLink}</td>
     <td>
       <button type="button" class="btn btn-danger mx-2 pull-right delete-product">Slet</button>
       <button type="button" data-bs-target="#supplier-update-product" data-bs-toggle="modal" class="btn btn-primary pull-right edit-product">Redigér</button>

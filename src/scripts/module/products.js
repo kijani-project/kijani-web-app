@@ -1,14 +1,106 @@
-/*console.log("test virker dette")
+import {HttpClient} from "src/scripts/module/HttpClient";
 
+// Product API endpoint
 const productEndpoint = restApi + "/products";
+
 const productTable = document.getElementById("product-page");
 
+const productDescription = document.getElementById("product-description");
+const supplierId = document.getElementById("supplier-id");
+const productId = document.getElementById("product-id");
+const supplierItemNumber = document.getElementById("item-number");
+const supplierEcolabels = document.getElementById("supplier-ecolabels");
+const supplierLink = document.getElementById("supplier-link");
+const supplierImage = document.getElementById("supplier-image");
+const saveProductBtn = document.getElementById("supplier-post-save");
 
-const data = await new HttpClient(productEndpoint).get();
-createTable(data);
+/**
+ * Show table
+ * @returns {Promise<void>}
+ */
+async function updateTable() {
 
+  const data = await new HttpClient(productEndpoint).get();
+  createTable(data);
 
+  // Delete button eventlister
+  deleteButton();
 
+  // Edit button eventlister
+  editButton();
+}
+
+/**
+ * Delete button event listener
+ */
+function deleteButton() {
+  const deleteButtons = document.querySelectorAll('.delete-product');
+
+  // Trigger the delete button
+  deleteButtons.forEach(el => el.addEventListener('click', async () => {
+    let productId = el.parentElement.closest("tr").id;
+
+    let rowId = productId.split("-").slice(-1).pop();
+
+    await deleteProduct(rowId);
+  }));
+}
+
+function getRowId(el) {
+  let productId = el.parentElement.closest("tr").id;
+  return productId.split("-").slice(-1).pop(); // GET ID
+}
+
+/**
+ * Delete button event listener
+ */
+function editButton() {
+  const editProductBtn = document.querySelectorAll('.edit-product');
+
+  // Trigger the edit button
+  editProductBtn.forEach(el => el.addEventListener('click', async () => {
+    let productId = getRowId(el);
+
+    let productName = document.getElementById("supplier-update-product-id"); // product name: TODO rename
+    let productDesc = document.getElementById("supplier-update-product-description");
+    let itemNumber = document.getElementById("supplier-update-item-number");
+    let co2Measurebility = document.getElementById("supplier-update-co2-measurability");
+    let link = document.getElementById("supplier-update-link");
+    let picture = document.getElementById("supplier-update-image");
+
+    let currentData = await new HttpClient(productEndpoint + "/" + productId).get();
+
+    picture.value = currentData.picture;
+    productName.value = currentData.name;
+    productDesc.value = currentData.description;
+    itemNumber.value = currentData.itemNumber;
+    co2Measurebility.value = currentData.co2Measurebility;
+    link.value = currentData.link;
+
+    const updateProductBtn = document.getElementById("supplier-update-save");
+
+    updateProductBtn.addEventListener("click", async () => {
+
+      let data = {
+        productId: productId,
+        picture: picture.value,
+        name: productName.value,
+        description: productDesc.value,
+        itemNumber: itemNumber.value,
+        co2Measurebility: co2Measurebility.value,
+        link: link.value
+      }
+
+      // Add product to database
+      await updateProduct(data)
+    });
+  }));
+}
+
+/**
+ * Build the table from a JSON object
+ * @param data
+ */
 function createTable(data) {
   let table = `<tr>
         <th scope="col">#</th>
@@ -23,7 +115,7 @@ function createTable(data) {
 
   // Loop to access all rows
   for (let row of data) {
-    table += `<tr id="product-page${row.productId}" >
+    table += `<tr id="supplier-id-${row.productId}" >
     <td>${row.productId}</td>
     <td><img src="${row.picture}" class="responsive-image" alt="" height=70 width=70"></td>
     <td>${row.name}</td>
@@ -41,231 +133,54 @@ function createTable(data) {
   productTable.innerHTML = table;
 }
 
-/*
-async function loadHtmlTemplate(link, elementid) {
-  let result = await fetch(link)
-  let text = await result.text();
+/**
+ * Delete product by ID
+ * @param id
+ * @returns {Promise<void>}
+ */
+async function deleteProduct(id) {
+  await new HttpClient(productEndpoint + '/' + id).delete();
 
-  let domparser = new DOMParser();
-  let html = domparser.parseFromString(text, "text/html");
-
-  if ((f = html.body.querySelector('div')) !== null) {
-    document.getElementById(elementid).append(f);
-  }
+  await updateTable();
 }
 
-if (document.readyState === 'loading') {
-  window.addEventListener('DOMContentLoaded', () => {
-    buildPage();
-  });
-} else {
-  buildPage();
+/**
+ * Create Product
+ * @param data
+ * @returns {Promise<void>}
+ */
+async function createProduct(data) {
+  await new HttpClient(productEndpoint).post(data);
+
+  await updateTable();
 }
 
-async function buildPage() {
-  loadHtmlTemplate("./html/navbar.html", 'navbar');
-  loadHtmlTemplate("./html/carusel.html", 'carusel');
-  await loadHtmlTemplate("./html/movieContainer.html", 'moviecontainer');
-  makeMovieList();
+async function updateProduct(data) {
+  await new HttpClient(productEndpoint + "/" + data.productId).put(data);
+
+  await updateTable();
 }
 
-function buildMovie(movie) {
-  console.log(movie.id)
-  let movieContainer = document.createElement("div");
-  movieContainer.classList.add("col");
-
-  let movieElement = document.createElement("div");
-  movieElement.id = movie.id;
-  movieElement.classList.add("card");
-
-  //Test
-  let movietrailerlink = movie.trailerLink;
-
-  let imagesrc = movie.imagesrc;
-
-  let image = document.createElement("img");
-  image.src = imagesrc;
-  image.classList.add("card-img-top");
-  image.alt = "img/FrenchFriday.png";
-  movieElement.append(image);
-
-  let cardBody = document.createElement("div");
-  cardBody.classList.add("card-body");
-  let cardHeader = document.createElement("h5");
-  cardHeader.textContent = movie.title; //title goes here;
-  cardHeader.classList.add("movie-title");
-  cardBody.append(cardHeader);
-
-  let cardParagraph = document.createElement("p");
-  cardParagraph.textContent = "INSERT MOVIE ATTRIBUT DESCRIPTION HERE";
-  cardParagraph.classList.add("card-text");
-  cardBody.append(cardParagraph);
-
-  const cardButton = document.createElement("button");
-  cardButton.textContent = "Læs mere";
-  cardButton.classList.add("btn");
-  cardButton.classList.add("btn-primary");
-  cardButton.setAttribute("data-bs-toggle", "modal");
-  cardButton.setAttribute("data-bs-target", "#modalMore-" + movie.id);
-  cardBody.append(cardButton);
-
-  const cardButtonLink = document.createElement("button");
-  cardButtonLink.textContent = "Se trailer";
-  cardButtonLink.classList.add("btn");
-  cardButtonLink.classList.add("btn-outline-secondary");
-  cardButtonLink.classList.add("mx-2");
-  cardButtonLink.setAttribute("data-bs-toggle", "modal");
-  cardButtonLink.setAttribute("data-bs-target", "#modalYoutube-" + movie.id);
-  cardBody.append(cardButtonLink);
-
-  initModalTrailer();
-  initModalMore()
-
-  movieElement.append(cardBody);
-
-  function initModalMore() {
-    const modalDiv = document.createElement("div");
-    modalDiv.id = "modalMore-" + movie.id;
-    modalDiv.classList.add("modal");
-    modalDiv.classList.add("fade");
-    modalDiv.setAttribute("aria-labelledby", "modalMore-" + movie.id);
-    document.body.append(modalDiv);
-
-    const modalDialog = document.createElement("div");
-    modalDialog.classList.add("modal-dialog");
-    modalDialog.classList.add("modal-dialog-centered");
-    modalDialog.classList.add("modal-lg");
-    modalDiv.append(modalDialog);
-
-    const modalContent = document.createElement("div");
-    modalContent.classList.add("modal-content");
-    modalDialog.append(modalContent);
-
-    const modalHeader = document.createElement("div");
-    modalHeader.classList.add("modal-header");
-    modalContent.append(modalHeader);
-
-    const modalTitle = document.createElement("h5");
-    modalTitle.classList.add("modal-title");
-    modalTitle.textContent = movie.title;
-    modalHeader.append(modalTitle);
-
-    const modalBody = document.createElement("div");
-    modalBody.classList.add("modal-body");
-    modalContent.append(modalBody);
-
-    const contentTable = document.createElement("table");
-    contentTable.classList.add("table");
-    contentTable.classList.add("table-borderless");
-
-    contentTable.innerHTML = `
-  <tr>
-    <td>Movie</td>
-    <td>${movie.title}</td>
-  </tr>
-  <tr>
-    <td>Year</td>
-    <td>${movie.year}</td>
-  </tr>
-  <tr>
-    <td>Country</td>
-    <td>${movie.country}</td>
-  </tr>
-  <tr>
-    <td>Language</td>
-    <td>${movie.language}</td>
-  </tr>
-  <tr>
-    <td>Duration</td>
-    <td>${movie.duration} min.</td>
-  </tr>
-  <tr>
-    <td>Director</td>
-    <td>${movie.director}</td>
-  </tr>
-  <tr>
-    <td>Parental Guide</td>
-    <td>${movie.parentalGuide}+</td>
-  </tr>
-`;
-
-    modalBody.append(contentTable);
-
-    const modalCloseButton = document.createElement("button");
-    modalCloseButton.classList.add("btn-close");
-    modalCloseButton.setAttribute("data-bs-dismiss", "modal");
-    modalHeader.append(modalCloseButton);
+/**
+ * Save product when the form is submitted
+ */
+saveProductBtn.addEventListener("click", async () => {
+  const data = {
+    name: supplierProductId.value,
+    image: supplierImage.value,
+    description: supplierProductDescription.value,
+    itemNumber: supplierItemNumber.value,
+    ecolabels: supplierEcolabels.value,
+    link: supplierLink.value
   }
 
-  function initModalTrailer() {
-    const modalDiv = document.createElement("div");
-    modalDiv.id = "modalYoutube-" + movie.id;
-    modalDiv.classList.add("modal");
-    modalDiv.classList.add("fade");
-    modalDiv.setAttribute("aria-labelledby", "modalYoutube-" + movie.id);
-    document.body.append(modalDiv);
+  // Add product to database
+  await createProduct(data)
+});
 
-    const modalDialog = document.createElement("div");
-    modalDialog.classList.add("modal-dialog");
-    modalDialog.classList.add("modal-dialog-centered");
-    modalDialog.classList.add("modal-lg");
-    modalDiv.append(modalDialog);
-
-    const modalContent = document.createElement("div");
-    modalContent.classList.add("modal-content");
-    modalDialog.append(modalContent);
-
-    const modalHeader = document.createElement("div");
-    modalHeader.classList.add("modal-header");
-    modalContent.append(modalHeader);
-
-    const modalTitle = document.createElement("h5");
-    modalTitle.classList.add("modal-title");
-    modalTitle.textContent = movie.title;
-    modalHeader.append(modalTitle);
-
-    const modalBody = document.createElement("div");
-    modalBody.classList.add("modal-body");
-    modalContent.append(modalBody);
-
-    //"https://www.youtube.com/embed/y40LA-5sK4o"
-
-    const youtubeIframe = document.createElement("iframe");
-    youtubeIframe.setAttribute("src", movietrailerlink);
-    youtubeIframe.setAttribute("width", "100%");
-    youtubeIframe.setAttribute("height", "400px");
-    youtubeIframe.setAttribute("title", movie.title + " trailer");
-    youtubeIframe.setAttribute("frameborder", "0");
-    youtubeIframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
-    youtubeIframe.setAttribute("allowfullscreen", "");
-    modalBody.append(youtubeIframe);
-
-
-    const modalCloseButton = document.createElement("button");
-    modalCloseButton.classList.add("btn-close");
-    modalCloseButton.setAttribute("data-bs-dismiss", "modal");
-    modalHeader.append(modalCloseButton);
-  }
-
-  movieElement.append(cardBody);
-
-  movieContainer.append(movieElement);
-  return movieContainer;
-}
-
-function makeMovieList() {
-  fetchMovies();
-}
-
-function appendToList(movie) {
-  let movieContainer = document.getElementById("movies");
-  movieContainer.append(buildMovie(movie));
-}
-
-async function fetchMovies() {
-  const response = await fetch('http://127.0.0.1:8080/api/movies');
-  const resJSON = await response.json();
-  console.log(resJSON);
-  resJSON.forEach(appendToList);
-}*/
-
+/**
+ * Build table on page load
+ */
+window.addEventListener("load", async () => {
+  await updateTable();
+});
