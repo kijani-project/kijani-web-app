@@ -4,12 +4,12 @@ import {HttpClient} from "src/scripts/module/HttpClient";
 const productEndpoint = restApi + "/products";
 
 const productTable = document.getElementById("product-page");
+const productId = document.getElementById("product-id");
+const ecolabels = document.getElementById("supplier-ecolabels");
 
 const productDescription = document.getElementById("product-description");
 const supplierId = document.getElementById("supplier-id");
-const productId = document.getElementById("product-id");
 const supplierItemNumber = document.getElementById("item-number");
-const supplierEcolabels = document.getElementById("supplier-ecolabels");
 const supplierLink = document.getElementById("supplier-link");
 const supplierImage = document.getElementById("supplier-image");
 const saveProductBtn = document.getElementById("supplier-post-save");
