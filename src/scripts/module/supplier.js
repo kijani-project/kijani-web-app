@@ -1,16 +1,21 @@
 import {HttpClient} from "src/scripts/module/HttpClient";
 
 // Product API endpoint
-const productEndpoint = restApi + "/products";
+const supplierId = 1;
+const supplierEndpoint = restApi + "/suppliers";
+const productEndpoint = restApi + "/products"
+const categoryEndpoint = restApi + "/categories";
 
 const productTable = document.getElementById("supplier");
 
 const supplierProductDescription = document.getElementById("supplier-product-description");
-const supplierProductId = document.getElementById("supplier-product-id");
+const supplierProductName = document.getElementById("supplier-product-name");
 const supplierItemNumber = document.getElementById("supplier-item-number");
-const supplierEcolabels = document.getElementById("supplier-ecolabels");
-const supplierLink = document.getElementById("supplier-link");
+const supplierBrochureLink = document.getElementById("supplier-link");
 const supplierImage = document.getElementById("supplier-image");
+const supplierCategory = document.getElementById("supplier-category");
+const supplierSubcategory = document.getElementById("supplier-subcategory");
+
 const saveProductBtn = document.getElementById("supplier-post-save");
 
 /**
@@ -18,8 +23,7 @@ const saveProductBtn = document.getElementById("supplier-post-save");
  * @returns {Promise<void>}
  */
 async function updateTable() {
-
-  const data = await new HttpClient(productEndpoint).get();
+  const data = await new HttpClient(supplierEndpoint + "/" + supplierId + "/products").get();
   createTable(data);
 
   // Delete button eventlister
@@ -37,9 +41,7 @@ function deleteButton() {
 
   // Trigger the delete button
   deleteButtons.forEach(el => el.addEventListener('click', async () => {
-    let productId = el.parentElement.closest("tr").id;
-
-    let rowId = productId.split("-").slice(-1).pop();
+    let rowId = getRowId(el);
 
     await deleteProduct(rowId);
   }));
@@ -60,38 +62,36 @@ function editButton() {
   editProductBtn.forEach(el => el.addEventListener('click', async () => {
     let productId = getRowId(el);
 
-    let productName = document.getElementById("supplier-update-product-id"); // product name: TODO rename
-    let productDesc = document.getElementById("supplier-update-product-description");
+    let productName = document.getElementById("supplier-update-product-name");
+    let productDescription = document.getElementById("supplier-update-product-description");
     let itemNumber = document.getElementById("supplier-update-item-number");
-    let co2Measurebility = document.getElementById("supplier-update-co2-measurability");
-    let link = document.getElementById("supplier-update-link");
-    let picture = document.getElementById("supplier-update-image");
+    let co2Mesurability = document.getElementById("supplier-update-co2-mesurability");
+    let imageLink = document.getElementById("supplier-update-image");
+    let brochureLink = document.getElementById("supplier-update-link");
 
     let currentData = await new HttpClient(productEndpoint + "/" + productId).get();
 
-    picture.value = currentData.picture;
-    productName.value = currentData.name;
-    productDesc.value = currentData.description;
     itemNumber.value = currentData.itemNumber;
-    co2Measurebility.value = currentData.co2Measurebility;
-    link.value = currentData.link;
+    productName.value = currentData.name;
+    productDescription.value = currentData.description;
+    imageLink.value = currentData.imageLink;
+    co2Mesurability.value = currentData.co2Mesurability;
+    brochureLink.value = currentData.brochureLink;
 
     const updateProductBtn = document.getElementById("supplier-update-save");
 
     updateProductBtn.addEventListener("click", async () => {
-
       let data = {
-        productId: productId,
-        picture: picture.value,
-        name: productName.value,
-        description: productDesc.value,
         itemNumber: itemNumber.value,
-        co2Measurebility: co2Measurebility.value,
-        link: link.value
+        name: productName.value,
+        description: productDescription.value,
+        co2Mesurability: co2Mesurability.value,
+        imageLink: imageLink.value,
+        brochureLink: brochureLink.value,
       }
 
       // Add product to database
-      await updateProduct(data)
+      await updateProduct(data, productId)
     });
   }));
 }
@@ -116,12 +116,12 @@ function createTable(data) {
   for (let row of data) {
     table += `<tr id="supplier-id-${row.productId}" >
     <td>${row.productId}</td>
-    <td><img src="${row.picture}" class="responsive-image" alt="" height=70 width=70"></td>
+    <td><img src="${row.imageLink}" class="responsive-image" alt="" height=70 width=70"></td>
     <td>${row.name}</td>
     <td>${row.description}</td>
     <td>${row.itemNumber} </td>
     <td>${row.ecolabels}</td>
-    <td>${row.link}</td>
+    <td>${row.brochureLink}</td>
     <td>
       <button type="button" class="btn btn-danger mx-2 pull-right delete-product">Slet</button>
       <button type="button" data-bs-target="#supplier-update-product" data-bs-toggle="modal" class="btn btn-primary pull-right edit-product">Redigér</button>
@@ -149,15 +149,22 @@ async function deleteProduct(id) {
  * @returns {Promise<void>}
  */
 async function createProduct(data) {
-  await new HttpClient(productEndpoint).post(data);
+  await new HttpClient(supplierEndpoint + "/" + supplierId + "/products").post(data);
 
   await updateTable();
 }
 
-async function updateProduct(data) {
-  await new HttpClient(productEndpoint + "/" + data.productId).put(data);
+/**
+ * Update product
+ * @param data
+ * @param productId
+ * @returns {Promise<void>}
+ */
+async function updateProduct(data, productId) {
 
-  await updateTable();
+  await new HttpClient(productEndpoint + "/" + productId).put(data);
+
+  location.reload(); // reload page to avoid the same event listener to get triggered several times
 }
 
 /**
@@ -165,12 +172,11 @@ async function updateProduct(data) {
  */
 saveProductBtn.addEventListener("click", async () => {
   const data = {
-    name: supplierProductId.value,
-    image: supplierImage.value,
-    description: supplierProductDescription.value,
     itemNumber: supplierItemNumber.value,
-    ecolabels: supplierEcolabels.value,
-    link: supplierLink.value
+    name: supplierProductName.value,
+    description: supplierProductDescription.value,
+    imageLink: supplierImage.value,
+    brochureLink: supplierBrochureLink.value, // TODO: Add missing data
   }
 
   // Add product to database
@@ -182,4 +188,47 @@ saveProductBtn.addEventListener("click", async () => {
  */
 window.addEventListener("load", async () => {
   await updateTable();
+
+  let profile = await new HttpClient(supplierEndpoint + "/" + supplierId + "/profile").get();
+
+  document.getElementById("supplier-name").innerText = profile.name;
+
+  let data = await new HttpClient(categoryEndpoint).get();
+
+  await addCategoriesToDropdown(data);
 });
+
+async function addCategoriesToDropdown(data) {
+  Object.values(data).forEach(el => {
+    let option = document.createElement("option");
+    option.textContent = el.categoryName;
+    option.value = el.id;
+
+    supplierCategory.append(option);
+  });
+}
+
+async function addSubCategoriesToDropdown(data) {
+  supplierSubcategory.innerHTML = "";
+
+  document.getElementById("supplier-subcategory").parentNode.hidden = false;
+
+  Object.values(data).forEach(category => {
+
+    if (category.categoryName === supplierCategory.textContent) {
+      Object.values(category.subCategories).forEach(subCategory => {
+        let option = document.createElement("option");
+        option.textContent = subCategory.subCategoryName;
+        option.value = category.id;
+
+        supplierSubcategory.append(option);
+      })
+    }
+  });
+}
+
+supplierCategory.addEventListener("click", async () => {
+  let data = await new HttpClient(categoryEndpoint).get();
+
+  await addSubCategoriesToDropdown(data);
+})

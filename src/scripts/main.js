@@ -5,6 +5,6 @@ import 'src/scripts/config/config'
 import 'src/scripts/vendor/bootstrap'
 
 // Modules
-if (document.querySelectorAll("#supplier").length) {
+if (document.querySelectorAll("#supplier-page").length) {
   import("src/scripts/module/supplier")
 }
