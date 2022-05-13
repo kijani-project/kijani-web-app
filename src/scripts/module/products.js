@@ -1,4 +1,3 @@
-//import {HttpClient} from "src/scripts/module/HttpClient";
 /*console.log("test virker dette")
 
 const productEndpoint = restApi + "/products";
