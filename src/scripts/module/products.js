@@ -22,26 +22,49 @@ async function updateCard() {
 //Etc. ${productData[0].name} directly on the object otherwise loop
 function createCard(productData) {
   const cardDiv = document.getElementById("product-row");
-  const cardDiv1 = document.getElementById("product-row1");
   let productCard;
-  for (let i = 0; i < 4; i++) {
+  for (let i = 1; i < 5; i++) {
     productCard = `<div class="col">
   <div class="card" style="width: 18rem;">
     <img src="${productData[i].imageLink}" class="card-img-top" alt="...">
       <div class="card-body">
         <p class="card-text">${productData[i].name}</p>
-        <p class="card-text">${productData[i].brochureLink}</p>
         <p class="card-text">${productData[i].description}</p>
+        <a href="${productData[i].brochureLink}" class="card-url"> link til hjemmeside</a>
 
       </div>
   </div>
 </div>`; //Use speciel quotes ´´, when reading HTML in JavaScript
     cardDiv.innerHTML += productCard;
+
+    //This means, that im filling some HTML in into my cardDiv and the content is from productcard. It needs to be += to append and not overwrite.
+  }
+}
+
+function createCard1(productData) {
+  const cardDiv1= document.getElementById("product-row1");
+  let productCard;
+  for (let i = 5; i < 8; i++) {
+    productCard = `<div class="col">
+  <div class="card" style="width: 18rem;">
+    <img src="${productData[i].imageLink}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <p class="card-text">${productData[i].name}</p>
+        <a href="${productData[i].brochureLink}" class="card-url"> link til hjemmeside</a>
+        <p class="card-text">${productData[i].description}</p>
+
+      </div>
+  </div>
+</div>`; //Use speciel quotes ´´, when reading HTML in JavaScript
     cardDiv1.innerHTML += productCard;
 
     //This means, that im filling some HTML in into my cardDiv and the content is from productcard. It needs to be += to append and not overwrite.
   }
 }
+
+
+
+
 
 function createDropdown(productData) {
   for (let i = 0; i < productData.length; i++) {
