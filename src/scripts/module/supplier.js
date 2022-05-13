@@ -104,11 +104,9 @@ function createTable(data) {
   let table = `<tr>
         <th scope="col">#</th>
         <th scope="col">Image</th>
-        <th scope="col">Navn</th>
-        <th scope="col">Beskrivelse</th>
         <th scope="col">Vare nr.</th>
+        <th scope="col">Navn</th>
         <th scope="col">Miljømærke</th>
-        <th scope="col">Ref.</th>
         <th scope="col"></th>
      </tr>`;
 
@@ -117,16 +115,31 @@ function createTable(data) {
     table += `<tr id="supplier-id-${row.productId}" >
     <td>${row.productId}</td>
     <td><img src="${row.imageLink}" class="responsive-image" alt="" height=70 width=70"></td>
+     <td>${row.itemNumber} </td>
     <td>${row.name}</td>
-    <td>${row.description}</td>
-    <td>${row.itemNumber} </td>
     <td>${row.ecolabels}</td>
-    <td>${row.brochureLink}</td>
     <td>
-      <button type="button" class="btn btn-danger mx-2 pull-right delete-product">Slet</button>
-      <button type="button" data-bs-target="#supplier-update-product" data-bs-toggle="modal" class="btn btn-primary pull-right edit-product">Redigér</button>
+       <button class="btn btn-primary pull-right" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample-${row.productId}" aria-expanded="false" aria-controls="collapseExample">+</button>
     </td>
-</tr>`;
+
+    <tr class="collapse out" id="collapseExample-${row.productId}"><td colspan="8"><div>
+
+    <div class="row">
+      <div class="col">
+        <img src="${row.imageLink}" class="responsive-image float-start" alt="" height=200 width=200">
+      </div>
+      <div class="col-6">
+          <p><u>${row.name}</u></p>
+          <p>${row.description}</p>
+          <p><a href="${row.brochureLink}">Ref. link</a></p>
+      </div>
+    <div class="col">
+      <button type="button" class="btn btn-danger pull-right delete-product">Slet</button>
+      <button type="button" data-bs-target="#supplier-update-product" data-bs-toggle="modal" class="btn btn-primary pull-right edit-product mx-2 ">Redigér</button>
+    </div>
+</div>
+
+</div></td></tr></tr>`;
   }
 
   productTable.innerHTML = table;
