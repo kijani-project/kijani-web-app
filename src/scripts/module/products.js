@@ -14,6 +14,7 @@ async function updateCard() {
   //createCard(data);
   console.log(productData);
   createCard(productData);
+  createCard1(productData);
   createDropdown(productData);
 }
 
@@ -21,6 +22,7 @@ async function updateCard() {
 //Etc. ${productData[0].name} directly on the object otherwise loop
 function createCard(productData) {
   const cardDiv = document.getElementById("product-row");
+  const cardDiv1 = document.getElementById("product-row1");
   let productCard;
   for (let i = 0; i < 4; i++) {
     productCard = `<div class="col">
@@ -28,10 +30,14 @@ function createCard(productData) {
     <img src="${productData[i].imageLink}" class="card-img-top" alt="...">
       <div class="card-body">
         <p class="card-text">${productData[i].name}</p>
+        <p class="card-text">${productData[i].brochureLink}</p>
+        <p class="card-text">${productData[i].description}</p>
+
       </div>
   </div>
 </div>`; //Use speciel quotes ´´, when reading HTML in JavaScript
     cardDiv.innerHTML += productCard;
+    cardDiv1.innerHTML += productCard;
 
     //This means, that im filling some HTML in into my cardDiv and the content is from productcard. It needs to be += to append and not overwrite.
   }
