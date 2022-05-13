@@ -9,7 +9,7 @@
 <body class="d-flex flex-column h-100">
 ${ require('src/html/partials/header.html') }
 
-<main class="flex-shrink-0">
+<main class="flex-shrink-0" id="supplier-page">
   <div class="container">
     <h1 class="mt-7 mb-7" id="supplier-name"></h1>
 
@@ -17,7 +17,7 @@ ${ require('src/html/partials/header.html') }
             type="button">Tilføj produkt
     </button>
 
-    <table class="table table-sm" id="supplier"></table>
+    <table class="table table-sm" id="supplier-table"></table>
   </div>
 </main>
 
@@ -31,7 +31,7 @@ ${ require('./partials/footer.html') }
         <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
       </div>
 
-      <div class="modal-body" id="supplier-page">
+      <div class="modal-body">
         <form>
 
           <div class="mb-3">

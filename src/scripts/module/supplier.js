@@ -6,7 +6,7 @@ const supplierEndpoint = restApi + "/suppliers";
 const productEndpoint = restApi + "/products"
 const categoryEndpoint = restApi + "/categories";
 
-const productTable = document.getElementById("supplier");
+const productTable = document.getElementById("supplier-table");
 
 const supplierProductDescription = document.getElementById("supplier-product-description");
 const supplierProductName = document.getElementById("supplier-product-name");
