@@ -14,10 +14,8 @@ async function updateCard() {
   //createCard(data);
   console.log(productData);
   createCard(productData);
+  createDropdown(productData);
 }
-
-
-//Filling data from fetch into product cards
 
 //productData have JSON objects in a list, that can be collected by envirement variables
 //Etc. ${productData[0].name} directly on the object otherwise loop
@@ -39,20 +37,49 @@ function createCard(productData) {
   }
 }
 
+function createDropdown(productData) {
+  for (let i = 0; i < productData.length; i++) {
+  //Dropdown 1
+  const dropdownList1 = document.getElementById("dropdownList1");
+  let dropdownElements1;
+    dropdownElements1 = document.createElement("li");
+    dropdownElements1.textContent = productData[i].name; //Testing need categories, certificat fetch etc from backend.
+    dropdownList1.append(dropdownElements1);
 
+  //Dropdown 2
+  const dropdownList2 = document.getElementById("dropdownList2");
+  let dropdownElements2;
+    dropdownElements2 = document.createElement("li");
+    dropdownElements2.textContent = productData[i].name; //Testing need categories, certificat fetch etc from backend.
+    dropdownList2.append(dropdownElements2);
 
+    //Dropdown 3
+    const dropdownList3 = document.getElementById("dropdownList3");
+    let dropdownElements3;
+    dropdownElements3 = document.createElement("li");
+    dropdownElements3.textContent = productData[i].name; //Testing need categories, certificat fetch etc from backend.
+    dropdownList3.append(dropdownElements3);
 
+    //Dropdown 4
+    const dropdownList4 = document.getElementById("dropdownList4");
+    let dropdownElements4;
+    dropdownElements4 = document.createElement("li");
+    dropdownElements4.textContent = productData[i].name; //Testing need categories, certificat fetch etc from backend.
+    dropdownList4.append(dropdownElements4);
 
-
-
-
-
+    //Dropdown 5
+    const dropdownList5 = document.getElementById("dropdownList5");
+    let dropdownElements5;
+    dropdownElements5 = document.createElement("li");
+    dropdownElements5.textContent = productData[i].name; //Testing need categories, certificat fetch etc from backend.
+    dropdownList5.append(dropdownElements5);
+  }
+}
 
 //Update data on pageload
-window.addEventListener("load", async () => {
-  await updateCard();
-});
-
+    window.addEventListener("load", async () => {
+      await updateCard();
+    });
 
 
 
