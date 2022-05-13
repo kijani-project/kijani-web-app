@@ -48,7 +48,7 @@ export class HttpClient {
     };
 
     return fetch(this.endPoint, requestOptions)
-      .then(response => response.json())
+      .then(response => response.text())
   }
 
   /**
