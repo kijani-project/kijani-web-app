@@ -50,8 +50,8 @@ function createCard1(productData) {
     <img src="${productData[i].imageLink}" class="card-img-top" alt="...">
       <div class="card-body">
         <p class="card-text">${productData[i].name}</p>
-        <a href="${productData[i].brochureLink}" class="card-url"> link til hjemmeside</a>
         <p class="card-text">${productData[i].description}</p>
+        <a href="${productData[i].brochureLink}" class="card-url"> link til hjemmeside</a>
 
       </div>
   </div>
