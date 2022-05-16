@@ -25,7 +25,7 @@ function createCard(productData) {
   let productCard;
   for (let i = 1; i < 5; i++) {
     productCard = `<div class="col">
-  <div class="card" style="width: 18rem;">
+  <div class="card"  style="width: 18rem;" >
     <img src="${productData[i].imageLink}" class="card-img-top" alt="...">
       <div class="card-body">
         <p class="card-text">${productData[i].name}</p>
@@ -46,7 +46,7 @@ function createCard1(productData) {
   let productCard;
   for (let i = 5; i < 8; i++) {
     productCard = `<div class="col">
-  <div class="card" style="width: 18rem;">
+  <div class="card border-0" style="width: 18rem;">
     <img src="${productData[i].imageLink}" class="card-img-top" alt="...">
       <div class="card-body">
         <p class="card-text">${productData[i].name}</p>
