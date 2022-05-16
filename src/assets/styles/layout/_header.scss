@@ -1,3 +1,14 @@
 // -----------------------------------------------------------------------------
 // Header of the site/application
 // -----------------------------------------------------------------------------
+a.navbar-brand {
+  color: #AAA;
+  background: #FFFFFF;
+  margin-right: 15px;
+  margin-left: 55px;
+}
+
+a.nav-link.active {
+  color: #AAA;
+  background: #FFFFFF;
+}

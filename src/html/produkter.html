@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <title>Produkter</title>
+  <meta content="" name="description">
+  <link href="../assets/styles/pages/_products.scss" rel="stylesheet">
+
+  ${ require('./partials/head.html') }
+</head>
+<body class="d-flex flex-column h-100">
+${ require('src/html/partials/header.html') }
+
+<!-- Begin page content -->
+<main class="flex-shrink-0" id="product-page">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+      </div>
+      <div class="col">
+        <div class="dropdown">
+          <button aria-expanded="false" class="btn dropdown-toggle" data-bs-toggle="dropdown" id="dropdownMenuButton1"
+                  type="button">
+            Kategori
+          </button>
+          <ul aria-labelledby="dropdownMenuButton1" class="dropdown-menu" id="dropdownList1">
+          </ul>
+        </div>
+      </div>
+      <div class="col">
+        <div class="dropdown">
+          <button aria-expanded="false" class="btn dropdown-toggle" data-bs-toggle="dropdown" id="dropdownMenuButton2"
+                  type="button">
+            Miljø certifikater
+          </button>
+          <ul aria-labelledby="dropdownMenuButton2" class="dropdown-menu" id="dropdownList2">
+          </ul>
+        </div>
+      </div>
+      <div class="col">
+        <div class="dropdown">
+          <button aria-expanded="false" class="btn dropdown-toggle" data-bs-toggle="dropdown" id="dropdownMenuButton3"
+                  type="button">
+            Pris
+          </button>
+          <ul aria-labelledby="dropdownMenuButton3" class="dropdown-menu" id="dropdownList3">
+          </ul>
+        </div>
+      </div>
+      <div class="col">
+        <div class="dropdown">
+          <button aria-expanded="false" class="btn dropdown-toggle" data-bs-toggle="dropdown" id="dropdownMenuButton4"
+                  type="button">
+            Leverandør
+          </button>
+          <ul aria-labelledby="dropdownMenuButton4" class="dropdown-menu" id="dropdownList4" id="dropdown-list">
+          </ul>
+        </div>
+      </div>
+      <div class="col">
+        <div class="dropdown">
+          <button aria-expanded="false" class="btn dropdown-toggle" data-bs-toggle="dropdown" id="dropdownMenuButton5"
+                  type="button">
+            Kategori
+          </button>
+          <ul aria-labelledby="dropdownMenuButton5" class="dropdown-menu" id="dropdownList5">
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- Front image -->
+  <div class="text-center mt-xl-5">
+    <img alt="..."
+         class="rounded" src="https://sw28470.sfstatic.io/upload_dir/pics/_thumbs/main.cat3-700x1400.w1400.h700.crop.png">
+  </div>
+
+  <div>
+    <p class="h1 text-center mt-xl-5">Møbler</p>
+  </div>
+
+  <!-- Dynamic cards gets filled in div by javaScript -->
+  <div class="container">
+    <div class="row" id="product-row">
+    </div>
+  </div>
+
+  <!-- Front image -->
+  <div class="text-center mt-xl-5">
+    <img alt="..."
+         class="rounded" src="https://sw28470.sfstatic.io/upload_dir/pics/_thumbs/main.cat4-700x1400.w1400.h700.crop.png">
+  </div>
+
+  <div>
+    <p class="h1 text-center mt-xl-5">COLLECT furniture </p>
+  </div>
+
+  <!-- Dynamic cards gets filled in div by javaScript -->
+  <div class="container">
+    <div class="row" id="product-row1">
+    </div>
+  </div>
+
+</main>
+
+${ require('./partials/footer.html') }
+
+</body>
+</html>

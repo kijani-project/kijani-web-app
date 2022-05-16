@@ -87,7 +87,7 @@ function editButton() {
         description: productDescription.value,
         co2Mesurability: co2Mesurability.value,
         imageLink: imageLink.value,
-        brochureLink: brochureLink.value,
+        brochureLink: brochureLink.value
       }
 
       // Add product to database
@@ -107,22 +107,22 @@ function createTable(data) {
         <th scope="col">Vare nr.</th>
         <th scope="col">Navn</th>
         <th scope="col">Miljømærke</th>
-        <th scope="col"></th>
+        <th></th>
      </tr>`;
 
   // Loop to access all rows
   for (let row of data) {
-    table += `<tr id="supplier-id-${row.productId}" >
+    table += `<tr id="supplier-id-${row.productId}">
     <td>${row.productId}</td>
     <td><img src="${row.imageLink}" class="responsive-image" alt="" height=70 width=70"></td>
-     <td>${row.itemNumber} </td>
+    <td>${row.itemNumber}</td>
     <td>${row.name}</td>
     <td>${row.ecolabels}</td>
     <td>
        <button class="btn btn-primary pull-right" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample-${row.productId}" aria-expanded="false" aria-controls="collapseExample">+</button>
     </td>
 
-    <tr class="collapse out" id="collapseExample-${row.productId}"><td colspan="8"><div>
+    <tr class="collapse out" id="collapseExample-${row.productId}"><td colspan="6"><div>
 
     <div class="row">
       <div class="col">
@@ -189,7 +189,7 @@ saveProductBtn.addEventListener("click", async () => {
     name: supplierProductName.value,
     description: supplierProductDescription.value,
     imageLink: supplierImage.value,
-    brochureLink: supplierBrochureLink.value, // TODO: Add missing data
+    brochureLink: supplierBrochureLink.value // TODO: Add missing data
   }
 
   // Add product to database
