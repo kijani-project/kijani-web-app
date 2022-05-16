@@ -126,7 +126,7 @@ function createTable(data) {
 
     <div class="row">
       <div class="col">
-        <img src="${row.imageLink}" class="responsive-image float-start" alt="" height=200 width=200">
+        <img src="${row.imageLink}" class="float-start" alt="" height=200 width=200">
       </div>
       <div class="col-6">
           <p><u>${row.name}</u></p>
