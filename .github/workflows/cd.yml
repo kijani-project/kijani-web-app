@@ -11,7 +11,7 @@ on:
 jobs:
   CD:
     if: github.event_name != 'pull_request'
-      
+
     runs-on: ubuntu-latest
 
     steps:
@@ -38,7 +38,7 @@ jobs:
 
       - name: Push docker compose to remote host
         run: rsync ./docker-compose.yml server:~/
-        
+
       - name: Push dist folder
         run: rsync -a ./dist server:~/tmp/
 

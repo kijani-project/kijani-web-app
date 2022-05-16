@@ -2,9 +2,6 @@ import {HttpClient} from "src/scripts/module/HttpClient";
 
 //TODO Gennemse og slet kommentarer inden aflevering
 
-//Test
-console.log("Er vi i products??");
-
 // Product API endpoint
 const productEndpoint = restApi + "/products";
 
@@ -12,7 +9,6 @@ const productEndpoint = restApi + "/products";
 async function updateCard() {
   const productData = await new HttpClient(productEndpoint).get();
   //createCard(data);
-  console.log(productData);
   createCard(productData);
   createCard1(productData);
   createDropdown(productData);
@@ -42,7 +38,7 @@ function createCard(productData) {
 }
 
 function createCard1(productData) {
-  const cardDiv1= document.getElementById("product-row1");
+  const cardDiv1 = document.getElementById("product-row1");
   let productCard;
   for (let i = 5; i < 8; i++) {
     productCard = `<div class="col">
@@ -63,21 +59,18 @@ function createCard1(productData) {
 }
 
 
-
-
-
 function createDropdown(productData) {
   for (let i = 0; i < productData.length; i++) {
-  //Dropdown 1
-  const dropdownList1 = document.getElementById("dropdownList1");
-  let dropdownElements1;
+    //Dropdown 1
+    const dropdownList1 = document.getElementById("dropdownList1");
+    let dropdownElements1;
     dropdownElements1 = document.createElement("li");
     dropdownElements1.textContent = productData[i].name; //Testing need categories, certificat fetch etc from backend.
     dropdownList1.append(dropdownElements1);
 
-  //Dropdown 2
-  const dropdownList2 = document.getElementById("dropdownList2");
-  let dropdownElements2;
+    //Dropdown 2
+    const dropdownList2 = document.getElementById("dropdownList2");
+    let dropdownElements2;
     dropdownElements2 = document.createElement("li");
     dropdownElements2.textContent = productData[i].name; //Testing need categories, certificat fetch etc from backend.
     dropdownList2.append(dropdownElements2);
@@ -106,9 +99,9 @@ function createDropdown(productData) {
 }
 
 //Update data on pageload
-    window.addEventListener("load", async () => {
-      await updateCard();
-    });
+window.addEventListener("load", async () => {
+  await updateCard();
+});
 
 
 
