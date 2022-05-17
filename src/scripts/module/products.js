@@ -1,109 +1,106 @@
 import {HttpClient} from "src/scripts/module/HttpClient";
 
-//TODO Gennemse og slet kommentarer inden aflevering
-
-// Product API endpoint
 const productEndpoint = restApi + "/products";
+const categoryEndpoint = restApi + "/categories";
 
-//Fetching data from API
-async function updateCard() {
-  const productData = await new HttpClient(productEndpoint).get();
-  //createCard(data);
-  createCard(productData);
-  createCard1(productData);
-  createDropdown(productData);
+const cardDiv = document.getElementById("product-row");
+const filterDiv = document.getElementById("index-filter-dropdown");
+
+function getProducts(category) {
+  //return new HttpClient(productEndpoint + "?categoryId=" + category.categoryId).get(); // TODO use this
+  return new HttpClient(productEndpoint).get();
 }
 
-//productData have JSON objects in a list, that can be collected by envirement variables
-//Etc. ${productData[0].name} directly on the object otherwise loop
-function createCard(productData) {
-  const cardDiv = document.getElementById("product-row");
-  let productCard;
-  for (let i = 1; i < 5; i++) {
-    productCard = `<div class="col">
-  <div class="card"  style="width: 18rem;" >
-    <img src="${productData[i].imageLink}" class="card-img-top" alt="...">
-      <div class="card-body">
-        <p class="card-text">${productData[i].name}</p>
-        <p class="card-text">${productData[i].description}</p>
-        <a href="${productData[i].brochureLink}" class="card-url"> link til hjemmeside</a>
+async function createCategoryBlocks() {
 
+  const categories = await new HttpClient(categoryEndpoint).get();
+
+  for (let category of Object.values(categories)) {
+    createBanner(category);
+    createHeader(category);
+    await createRowOfCards(await getProducts(category));
+  }
+}
+
+function createHeader(category) {
+  cardDiv.innerHTML += `<h3 class="text-center mt-xl-5">${category.categoryName}</h3>`;
+}
+
+function createBanner(category) {
+  cardDiv.innerHTML += `<div>
+    <img alt="${category.categoryName}" loading="lazy"
+         class="rounded mb-5" src="${category.imageLink}">
+  </div>`;
+}
+
+async function createRowOfCards(products) {
+
+  let productsPerRow = 4;
+  let maxLength = 100;
+
+  for (let productId = 0; productId < productsPerRow; productId++) {
+
+    let description = textEllipsis(products[productId].description, maxLength);
+
+    cardDiv.innerHTML += `
+    <div class="col-${12 / productsPerRow}">
+      <div class="card">
+        <img src="${products[productId].imageLink}" class="card-img-top" alt="" loading="lazy">
+          <div class="card-body">
+            <p class="card-text">${products[productId].name}</p>
+            <p class="card-text">${description}</p>
+          </div>
       </div>
-  </div>
-</div>`; //Use speciel quotes ´´, when reading HTML in JavaScript
-    cardDiv.innerHTML += productCard;
-
-    //This means, that im filling some HTML in into my cardDiv and the content is from productcard. It needs to be += to append and not overwrite.
+    </div>`;
   }
 }
 
-function createCard1(productData) {
-  const cardDiv1 = document.getElementById("product-row1");
-  let productCard;
-  for (let i = 5; i < 8; i++) {
-    productCard = `<div class="col">
-  <div class="card border-0" style="width: 18rem;">
-    <img src="${productData[i].imageLink}" class="card-img-top" alt="...">
-      <div class="card-body">
-        <p class="card-text">${productData[i].name}</p>
-        <p class="card-text">${productData[i].description}</p>
-        <a href="${productData[i].brochureLink}" class="card-url"> link til hjemmeside</a>
+async function filterNavMenu() {
 
-      </div>
-  </div>
-</div>`; //Use speciel quotes ´´, when reading HTML in JavaScript
-    cardDiv1.innerHTML += productCard;
+  let filters = 2;
 
-    //This means, that im filling some HTML in into my cardDiv and the content is from productcard. It needs to be += to append and not overwrite.
+  for (let productId = 0; productId < filters; productId++) {
+    await createFilterDropdown();
   }
 }
 
+async function createFilterDropdown() {
 
-function createDropdown(productData) {
-  for (let i = 0; i < productData.length; i++) {
-    //Dropdown 1
-    const dropdownList1 = document.getElementById("dropdownList1");
-    let dropdownElements1;
-    dropdownElements1 = document.createElement("li");
-    dropdownElements1.textContent = productData[i].name; //Testing need categories, certificat fetch etc from backend.
-    dropdownList1.append(dropdownElements1);
+  const categories = await new HttpClient(categoryEndpoint).get();
 
-    //Dropdown 2
-    const dropdownList2 = document.getElementById("dropdownList2");
-    let dropdownElements2;
-    dropdownElements2 = document.createElement("li");
-    dropdownElements2.textContent = productData[i].name; //Testing need categories, certificat fetch etc from backend.
-    dropdownList2.append(dropdownElements2);
+  let select = document.createElement("select");
+  select.id = "supplier-category";
+  select.className = "form-select";
+  select.className = `col-${12 / 2}`;
 
-    //Dropdown 3
-    const dropdownList3 = document.getElementById("dropdownList3");
-    let dropdownElements3;
-    dropdownElements3 = document.createElement("li");
-    dropdownElements3.textContent = productData[i].name; //Testing need categories, certificat fetch etc from backend.
-    dropdownList3.append(dropdownElements3);
+  Object.values(categories).forEach(category => {
+    let opt = document.createElement('option');
+    opt.value = category.categoryId;
+    opt.text = category.categoryName;
+    select.append(opt);
+  })
 
-    //Dropdown 4
-    const dropdownList4 = document.getElementById("dropdownList4");
-    let dropdownElements4;
-    dropdownElements4 = document.createElement("li");
-    dropdownElements4.textContent = productData[i].name; //Testing need categories, certificat fetch etc from backend.
-    dropdownList4.append(dropdownElements4);
-
-    //Dropdown 5
-    const dropdownList5 = document.getElementById("dropdownList5");
-    let dropdownElements5;
-    dropdownElements5 = document.createElement("li");
-    dropdownElements5.textContent = productData[i].name; //Testing need categories, certificat fetch etc from backend.
-    dropdownList5.append(dropdownElements5);
-  }
+  filterDiv.append(select);
 }
 
-//Update data on pageload
 window.addEventListener("load", async () => {
-  await updateCard();
+  await filterNavMenu();
+  await createCategoryBlocks();
 });
 
+function textEllipsis(str, maxLength, {side = "end", ellipsis = "..."} = {}) {
+  if (str.length > maxLength) {
+    switch (side) {
+      case "start":
+        return ellipsis + str.slice(-(maxLength - ellipsis.length));
+      case "end":
+      default:
+        return str.slice(0, maxLength - ellipsis.length) + ellipsis;
+    }
+  }
 
+  return str;
+}
 
 
 

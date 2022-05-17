@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="">
 <head>
-  <title>Frontend Starter</title>
+  <title>Produkter</title>
   <meta content="" name="description">
 
   ${ require('./partials/head.html') }
@@ -9,11 +9,19 @@
 <body class="d-flex flex-column h-100">
 ${ require('src/html/partials/header.html') }
 
-<!-- Begin page content -->
-<main class="flex-shrink-0">
+<main id="product-page">
+
   <div class="container">
-    <h1 class="mt-5">kijani is running!</h1>
+
+    <nav style="padding-top: 60px;">
+      <div class="row" id="index-filter-dropdown">
+      </div>
+    </nav>
+
+    <div class="row" id="product-row">
+    </div>
   </div>
+
 </main>
 
 ${ require('./partials/footer.html') }
