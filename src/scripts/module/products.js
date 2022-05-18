@@ -44,10 +44,10 @@ async function createRowOfCards(products) {
 
     cardDiv.innerHTML += `
     <div class="col-${12 / productsPerRow} mb-xl-5">
-      <div class="card">
+      <div class="card mx-auto">
         <img src="${products[productId].imageLink}" class="card-img-top" alt="" loading="lazy">
           <div class="card-body">
-            <p class="card-text">${products[productId].name}</p>
+            <p class="card-text"><strong>${products[productId].name}</strong></p>
             <p class="card-text">${description}</p>
           </div>
       </div>
@@ -56,8 +56,7 @@ async function createRowOfCards(products) {
 }
 
 async function filterNavMenu() {
-
-  let filters = 2;
+  let filters = 4;
 
   for (let productId = 0; productId < filters; productId++) {
     await createFilterDropdown();
@@ -68,7 +67,7 @@ async function createFilterDropdown() {
   const categories = await new HttpClient(categoryEndpoint).get();
 
   let div = document.createElement("div");
-  div.classList.add(`col-${12 / 2}`)
+  div.classList.add(`col-${12 / 4}`)
 
   let select = document.createElement("select");
   select.classList.add("form-select");
@@ -84,6 +83,8 @@ async function createFilterDropdown() {
 
   filterDiv.append(div);
 }
+
+
 
 window.addEventListener("load", async () => {
   await filterNavMenu();
