@@ -23,13 +23,13 @@ async function createCategoryBlocks() {
 }
 
 function createHeader(category) {
-  cardDiv.innerHTML += `<h3 class="text-center mt-xl-5">${category.categoryName}</h3>`;
+  cardDiv.innerHTML += `<h3 class="text-center mb-xl-3">${category.categoryName}</h3>`;
 }
 
 function createBanner(category) {
-  cardDiv.innerHTML += `<div>
+  cardDiv.innerHTML += `<div class="mb-xl-3">
     <img alt="${category.categoryName}" loading="lazy"
-         class="rounded mb-5" src="${category.imageLink}">
+         class="rounded mb-5" src="${category.imageLink}" style="width: 100%">
   </div>`;
 }
 
@@ -43,7 +43,7 @@ async function createRowOfCards(products) {
     let description = textEllipsis(products[productId].description, maxLength);
 
     cardDiv.innerHTML += `
-    <div class="col-${12 / productsPerRow}">
+    <div class="col-${12 / productsPerRow} mb-xl-5">
       <div class="card">
         <img src="${products[productId].imageLink}" class="card-img-top" alt="" loading="lazy">
           <div class="card-body">
@@ -65,22 +65,24 @@ async function filterNavMenu() {
 }
 
 async function createFilterDropdown() {
-
   const categories = await new HttpClient(categoryEndpoint).get();
 
+  let div = document.createElement("div");
+  div.classList.add(`col-${12 / 2}`)
+
   let select = document.createElement("select");
-  select.id = "supplier-category";
-  select.className = "form-select";
-  select.className = `col-${12 / 2}`;
+  select.classList.add("form-select");
 
   Object.values(categories).forEach(category => {
     let opt = document.createElement('option');
     opt.value = category.categoryId;
     opt.text = category.categoryName;
     select.append(opt);
+
+    div.append(select)
   })
 
-  filterDiv.append(select);
+  filterDiv.append(div);
 }
 
 window.addEventListener("load", async () => {
