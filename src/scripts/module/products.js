@@ -7,8 +7,7 @@ const cardDiv = document.getElementById("product-row");
 const filterDiv = document.getElementById("index-filter-dropdown");
 
 function getProducts(category) {
-  //return new HttpClient(productEndpoint + "?categoryId=" + category.categoryId).get(); // TODO use this
-  return new HttpClient(productEndpoint).get();
+  return new HttpClient(productEndpoint + "?categoryId=" + category.categoryId).get();
 }
 
 async function createCategoryBlocks() {
@@ -23,13 +22,13 @@ async function createCategoryBlocks() {
 }
 
 function createHeader(category) {
-  cardDiv.innerHTML += `<h3 class="text-center mb-xl-3">${category.categoryName}</h3>`;
+  cardDiv.innerHTML += `<h3 class="text-center pb-xl-3">${category.categoryName}</h3>`;
 }
 
 function createBanner(category) {
-  cardDiv.innerHTML += `<div class="mb-xl-3">
+  cardDiv.innerHTML += `<div class="pb-xl-3">
     <img alt="${category.categoryName}" loading="lazy"
-         class="rounded mb-5" src="${category.imageLink}" style="width: 100%">
+         class="banner-img rounded pb-5" src="${category.imageLink}" style="width: 100%">
   </div>`;
 }
 
@@ -40,10 +39,10 @@ async function createRowOfCards(products) {
 
   for (let productId = 0; productId < productsPerRow; productId++) {
 
-    let description = textEllipsis(products[productId].description, maxLength);
-
-    cardDiv.innerHTML += `
-    <div class="col-${12 / productsPerRow} mb-xl-5">
+    if (products[productId] !== undefined) {
+      let description = textEllipsis(products[productId].description, maxLength);
+      cardDiv.innerHTML += `
+    <div class="col-${12 / productsPerRow} pb-xl-5">
       <div class="card mx-auto">
         <img src="${products[productId].imageLink}" class="card-img-top" alt="" loading="lazy">
           <div class="card-body">
@@ -52,6 +51,7 @@ async function createRowOfCards(products) {
           </div>
       </div>
     </div>`;
+    }
   }
 }
 
@@ -84,8 +84,6 @@ async function createFilterDropdown() {
   filterDiv.append(div);
 }
 
-
-
 window.addEventListener("load", async () => {
   await filterNavMenu();
   await createCategoryBlocks();
@@ -104,9 +102,3 @@ function textEllipsis(str, maxLength, {side = "end", ellipsis = "..."} = {}) {
 
   return str;
 }
-
-
-
-
-
-

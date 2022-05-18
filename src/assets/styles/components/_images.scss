@@ -9,3 +9,8 @@
   height: auto;
   display: inline-block;
 }
+
+.banner-img {
+  max-height: 500px;
+  object-fit: cover;
+}
