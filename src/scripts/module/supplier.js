@@ -68,7 +68,7 @@ function editButton() {
     let productName = document.getElementById("supplier-update-product-name");
     let productDescription = document.getElementById("supplier-update-product-description");
     let itemNumber = document.getElementById("supplier-update-item-number");
-    let co2Mesurability = document.getElementById("supplier-update-co2-mesurability");
+    let co2Mesurability = document.getElementById("supplier-update-co2-mesurability"); // TODO fix typo
     let imageLink = document.getElementById("supplier-update-image");
     let brochureLink = document.getElementById("supplier-update-link");
 
@@ -121,14 +121,13 @@ function createTable(data) {
     });
 
     let ecoLabelsString = productEcoLabels.join(", ");
-    let designer = row.designer; // TODO use
-    let mesurementsLenght = row.measurement.lenght;
-    let mesurementsWidth = row.measurement.width;
-    let mesurementsHeight = row.measurement.height;
-  //  let subCategories = row.subCategories;
-    let co2Mesurability = row.co2Mesurability;
+    //let designer = row.designer; // TODO use
+    //let mesurementsLenght = row.measurement.lenght;
+    //let mesurementsWidth = row.measurement.width;
+   // let mesurementsHeight = row.measurement.height;
+    //  let subCategories = row.subCategories;
+    //let co2Mesurability = row.co2Mesurability;
     // let ecoTests
-    
 
 
     table += `<tr id="supplier-id-${row.productId}" data-bs-toggle="collapse" data-bs-target="#collapseExample-${row.productId}" aria-expanded="false" aria-controls="collapseExample">
@@ -243,7 +242,7 @@ async function addCategoriesToDropdown(data) {
 async function addSubCategoriesToDropdown(data) {
   supplierSubcategory.innerHTML = "";
 
-  document.getElementById("supplier-subcategory").parentNode.hidden = false;
+  document.getElementById("supplier-subcategory").parentNode.hidden = false; // TODO fix camelcase
 
   Object.values(data).forEach(category => {
 
