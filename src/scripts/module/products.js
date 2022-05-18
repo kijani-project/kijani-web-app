@@ -4,7 +4,6 @@ const productEndpoint = restApi + "/products";
 const categoryEndpoint = restApi + "/categories";
 
 const cardDiv = document.getElementById("product-row");
-const filterDiv = document.getElementById("index-filter-dropdown");
 
 function getProducts(category) {
   return new HttpClient(productEndpoint + "?categoryId=" + category.categoryId).get();
@@ -55,37 +54,7 @@ async function createRowOfCards(products) {
   }
 }
 
-async function filterNavMenu() {
-  let filters = 4;
-
-  for (let productId = 0; productId < filters; productId++) {
-    await createFilterDropdown();
-  }
-}
-
-async function createFilterDropdown() {
-  const categories = await new HttpClient(categoryEndpoint).get();
-
-  let div = document.createElement("div");
-  div.classList.add(`col-${12 / 4}`)
-
-  let select = document.createElement("select");
-  select.classList.add("form-select");
-
-  Object.values(categories).forEach(category => {
-    let opt = document.createElement('option');
-    opt.value = category.categoryId;
-    opt.text = category.categoryName;
-    select.append(opt);
-
-    div.append(select)
-  })
-
-  filterDiv.append(div);
-}
-
 window.addEventListener("load", async () => {
-  await filterNavMenu();
   await createCategoryBlocks();
 });
 
