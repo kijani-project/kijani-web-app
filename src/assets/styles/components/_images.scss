@@ -1,13 +1,5 @@
-.responsive-image {
-  border: 3px;
-}
-
-.responsive-image:hover {
-  top: -25px;
-  left: -35px;
-  width: 200px;
-  height: auto;
-  display: inline-block;
+.zoom:hover {
+  transform: scale(3);
 }
 
 .banner-img {

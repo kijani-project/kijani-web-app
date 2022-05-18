@@ -9,13 +9,20 @@
 <body class="d-flex flex-column h-100">
 ${ require('src/html/partials/header.html') }
 
-<main class="flex-shrink-0" id="supplier-page">
+<main class="flex-shrink-0" id="supplier-page" style="padding-top: 60px;">
   <div class="container">
-    <h1 class="mt-7 mb-7" id="supplier-name"></h1>
+    <div class="row pb-3">
+      <div class="col-6">
+        <h1 class="mt-7 mb-7" id="supplier-name"></h1>
+      </div>
 
-    <button class="btn btn-primary mt-2" data-bs-target="#exampleModal" data-bs-toggle="modal"
-            type="button">Opret produkt
-    </button>
+      <div class="col-6 text-end">
+        <button class="btn btn-lg btn-primary mt-2" data-bs-target="#exampleModal" data-bs-toggle="modal"
+                type="button"><i aria-hidden="true" class="fa fa-plus"></i>
+          Opret produkt
+        </button>
+      </div>
+    </div>
 
     <table class="table table-sm" id="supplier-table"></table>
   </div>

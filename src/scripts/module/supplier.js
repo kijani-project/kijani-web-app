@@ -1,7 +1,10 @@
 import {HttpClient} from "src/scripts/module/HttpClient";
 
+// Supplier Id
+const url = new URL(window.location.href);
+const supplierId = url.searchParams.get("supplierId");
+
 // Product API endpoint
-const supplierId = 1;
 const supplierEndpoint = restApi + "/suppliers";
 const productEndpoint = restApi + "/products"
 const categoryEndpoint = restApi + "/categories";
@@ -112,14 +115,30 @@ function createTable(data) {
 
   // Loop to access all rows
   for (let row of data) {
-    table += `<tr id="supplier-id-${row.productId}">
+    let productEcoLabels = [];
+    Object.values(row.productEcoLabels).forEach(el => {
+      productEcoLabels.push(el.type)
+    });
+
+    let ecoLabelsString = productEcoLabels.join(", ");
+    let designer = row.designer; // TODO use
+    let mesurementsLenght = row.measurement.lenght;
+    let mesurementsWidth = row.measurement.width;
+    let mesurementsHeight = row.measurement.height;
+  //  let subCategories = row.subCategories;
+    let co2Mesurability = row.co2Mesurability;
+    // let ecoTests
+    
+
+
+    table += `<tr id="supplier-id-${row.productId}" data-bs-toggle="collapse" data-bs-target="#collapseExample-${row.productId}" aria-expanded="false" aria-controls="collapseExample">
     <td>${row.productId}</td>
-    <td><img src="${row.imageLink}" class="responsive-image" alt="" height=70 width=70"></td>
+    <td><img src="${row.imageLink}" class="zoom" alt="" height=70 width=70"></td>
     <td>${row.itemNumber}</td>
     <td>${row.name}</td>
-    <td>${row.ecolabels}</td>
-    <td>
-       <button class="btn btn-primary pull-right" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample-${row.productId}" aria-expanded="false" aria-controls="collapseExample">+</button>
+    <td>${ecoLabelsString}</td>
+    <td class="text-end">
+       <i class="fa fa-sort-desc" aria-hidden="true"></i>
     </td>
 
     <tr class="collapse out" id="collapseExample-${row.productId}"><td colspan="6"><div>
