@@ -16,7 +16,7 @@ async function updateDropdownMenuCategories() {
 }
 
 async function updateDropdownMenuProductEcoLabels() {
-  const productEcoLabelsEndpoint = restApi + "/productEcolabels";
+  const productEcoLabelsEndpoint = restApi + "/productEcoLabels";
   const categoryUl = document.querySelector('[aria-labelledby="navbarDropdownMenuProductEcoLabels"]');
   const pageName = "miljomarke";
   const productHtmlPage = "produkter.html";
@@ -24,8 +24,8 @@ async function updateDropdownMenuProductEcoLabels() {
 
   Object.values(categories).forEach(el => {
     let url = new URL(domain + "/" + productHtmlPage);
-    url.searchParams.append(pageName, el.productEcolabelId)
-    categoryUl.innerHTML += `<li><a class="dropdown-item" href="${url}">${el.productEcolabelName}</a></li>`;
+    url.searchParams.append(pageName, el.productEcoLabelId)
+    categoryUl.innerHTML += `<li><a class="dropdown-item" href="${url}">${el.productEcoLabelName}</a></li>`;
   })
 }
 
