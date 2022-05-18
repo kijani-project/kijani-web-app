@@ -10,8 +10,7 @@
   display: inline-block;
 }
 
-.card-img-top {
-  width: 285px;
-  height: 290px;
-  object-fit: fill;
+.banner-img {
+  max-height: 500px;
+  object-fit: cover;
 }

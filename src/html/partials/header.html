@@ -1,25 +1,67 @@
 <header>
-  <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container-fluid container">
+      <a class="me-lg-5" href="/">
         <img alt="Paustian" class="responsive"
-             height="29" src="https://paustian2gether.dk/____impro/1/onewebmedia/Paustian2gether%20navn.jpg"
-             width="245">
+             src="${ require('src/assets/images/logo.png') }"
+             width="200">
       </a>
-      <button aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
-              data-bs-target="#navbarCollapse" data-bs-toggle="collapse" type="button">
+      <button aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"
+              class="navbar-toggler"
+              data-bs-target="#navbarNavDropdown" data-bs-toggle="collapse" type="button">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
-          <li class="nav-item">
-            <a aria-current="page" class="nav-link bg-light" href="/produkter.html">Produkter</a>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown me-lg-3">
+            <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+               id="navbarDropdownMenuCategories" role="button">
+              Kategori
+            </a>
+            <ul aria-labelledby="navbarDropdownMenuCategories" class="dropdown-menu">
+            </ul>
           </li>
-          <li class="nav-item">
-            <a aria-current="page" class="nav-link bg-light" href="/leverandor.html">Leverandør</a>
+          <li class="nav-item dropdown me-lg-3">
+            <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+               id="navbarDropdownMenuProductEcoLabels" role="button">
+              Miljømærke
+            </a>
+            <ul aria-labelledby="navbarDropdownMenuProductEcoLabels" class="dropdown-menu">
+            </ul>
+          </li>
+          <li class="nav-item dropdown me-lg-3">
+            <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+               id="navbarDropdownMenuDesigner" role="button">
+              Designer
+            </a>
+            <ul aria-labelledby="navbarDropdownMenuDesigner" class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Kommer snart</a></li>
+              <li><a class="dropdown-item" href="#">Kommer snart</a></li>
+              <li><a class="dropdown-item" href="#">Kommer snart</a></li>
+            </ul>
           </li>
         </ul>
+
+
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item dropdown">
+            <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+               id="navbarDropdownMenuLink4" role="button">
+              <i class="fa fa-lg fa-user" aria-hidden="true"></i>
+            </a>
+            <ul aria-labelledby="navbarDropdownMenuLink4" class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Min profil</a></li>
+              <li><a class="dropdown-item" href="#">Mine produkter</a></li>
+              <li><a class="dropdown-item" href="#">Log af</a></li>
+            </ul>
+          </li>
+        </ul>
+
+
       </div>
+
     </div>
+
+
   </nav>
 </header>
