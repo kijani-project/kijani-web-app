@@ -5,31 +5,54 @@ const productEndpoint = restApi + "/products";
 const categoryEndpoint = restApi + "/categories";
 const productEcoLabelEndpoint = restApi + "/productEcoLabels";
 const subCategoryEndpoint = restApi + "/subCategories"
+const designerEndpoint = restApi + "/designer"
 
 const cardDiv = document.getElementById("product-row");
 const headerOne = document.getElementById("product-title");
 
 async function createPageContent() {
   const url = new URL(window.location.href);
-  const categoryId = url.searchParams.get("categoryId");
-  const productEcoLabelId = url.searchParams.get("productEcoLabelId");
+  const categoryParam = url.searchParams.get("categoryId");
+  const productEcoLabelParam = url.searchParams.get("productEcoLabelId");
+  const designerParam = url.searchParams.get("designerId");
 
-  const category = await new HttpClient(categoryEndpoint + "/" + categoryId).get()
-    .catch(noCategory);
-
-  const productEcoLabel = await new HttpClient(productEcoLabelEndpoint + "/" + productEcoLabelId).get()
-    .catch(noCategory);
-
-  const subCategories = await new HttpClient(subCategoryEndpoint).get();
-
-  if (category) {
-    updateHeaderOne(category);
-    updateSubCategories(subCategories);
-    await createCards(category);
-  } else if (productEcoLabel) {
-    updateHeaderOne(category);
-    await createProductEcoLabelCards(productEcoLabel);
+  if (categoryParam) {
+    await showProductsByCategory(categoryParam);
+  } else if (productEcoLabelParam) {
+    await showProductsByProductEcoLabel(productEcoLabelParam);
+  } else if (designerParam) {
+    //await showProductsByDesigner(designerParam);
+  } else {
+    await showProducts();
   }
+}
+
+async function showProducts() {
+  updateHeaderOne("Produkter");
+  await createProductCards(productEndpoint);
+}
+
+async function showProductsByDesigner(designerParam) {
+  const designer = await new HttpClient(designerEndpoint + "/" + designerParam).get()
+    .catch(elementNotFound);
+  updateHeaderOne(designer.name);
+  await createProductCards(productEndpoint + "?designerId=" + designer.name);
+}
+
+async function showProductsByProductEcoLabel(productEcoLabelParam) {
+  const productEcoLabel = await new HttpClient(productEcoLabelEndpoint + "/" + productEcoLabelParam).get()
+    .catch(elementNotFound);
+  updateHeaderOne(productEcoLabel.type);
+  await createProductCards(productEndpoint + "?productEcoLabelId=" + productEcoLabel.productEcoLabelId);
+}
+
+async function showProductsByCategory(categoryParam) {
+  const category = await new HttpClient(categoryEndpoint + "/" + categoryParam).get()
+    .catch(elementNotFound);
+  const subCategories = await new HttpClient(subCategoryEndpoint).get();
+  updateHeaderOne(category.categoryName);
+  updateSubCategories(subCategories);
+  await createProductCards(productEndpoint + "?categoryId=" + category.categoryId);
 }
 
 function updateSubCategories(subCategories) {
@@ -44,18 +67,11 @@ function updateSubCategories(subCategories) {
   cardDiv.innerHTML = `<div class="text-center mb-5"><p>${subCategoriesSeparated}</p></div>`;
 }
 
-function updateHeaderOne(category) {
-  headerOne.innerText = category.categoryName;
+function updateHeaderOne(title) {
+  headerOne.innerText = title;
 }
 
-async function createCards(category) {
-  let endpoint;
-
-  if (category.categoryId != null) {
-    endpoint = productEndpoint + "?categoryId=" + category.categoryId;
-  } else {
-    endpoint = productEndpoint;
-  }
+async function createProductCards(endpoint) {
 
   const products = await new HttpClient(endpoint).get();
 
@@ -64,41 +80,20 @@ async function createCards(category) {
       createCard(product);
     })
   } else {
-    noProducts();
-  }
-}
-
-async function createProductEcoLabelCards(productEcoLabel) {
-  let endpoint;
-
-  if (productEcoLabel.productEcoLabelId != null) {
-    endpoint = productEndpoint + "?productEcoLabelId=" + productEcoLabel.productEcoLabelId;
-  } else {
-    endpoint = productEndpoint;
-  }
-
-  const products = await new HttpClient(endpoint).get();
-
-  if (products.length) {
-    Object.values(products).forEach(product => {
-      createCard(product);
-    })
-  } else {
-    noProducts();
+    productsNotFound();
   }
 }
 
 function createCard(product) {
   cardDiv.innerHTML += new ProductCard(product).create();
-
 }
 
-function noProducts() {
-  cardDiv.innerHTML = "Der er ingen produkter i denne kategori.";
+function productsNotFound() {
+  cardDiv.innerHTML = "Der blev ikke fundet nogen produkter.";
 }
 
-function noCategory() {
-  cardDiv.innerHTML = "Denne kategori findes ikke.";
+function elementNotFound() {
+  cardDiv.innerHTML = "Der blev ikke fundet noget for det valgte søgekriterie.";
 }
 
 window.addEventListener("load", async () => {
