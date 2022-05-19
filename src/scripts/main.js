@@ -14,3 +14,7 @@ if (document.querySelectorAll("#supplier-page").length) {
 if (document.querySelectorAll("#product-page").length) {
   import("src/scripts/module/products")
 }
+
+if (document.querySelectorAll("#category-page").length) {
+  import("src/scripts/module/category")
+}
