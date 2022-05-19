@@ -140,16 +140,16 @@ module.exports = function (env, args) {
         });
       }),
       new BrowserSyncPlugin({
-        ...devServerConfiguration,
-        server: {
-          baseDir: ['dist']
-        },
-        files: [path.resolve(__dirname, 'src/**/*')],
-        ghostMode: {
-          location: false,
-        },
-        injectChanges: true,
-        logFileChanges: true,
+          ...devServerConfiguration,
+          server: {
+            baseDir: ['dist']
+          },
+          files: [path.resolve(__dirname, 'src/**/*')],
+          ghostMode: {
+            location: false,
+          },
+          injectChanges: true,
+          logFileChanges: true,
         },
         {
           // prevent BrowserSync from reloading the page
