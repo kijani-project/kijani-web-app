@@ -121,14 +121,12 @@ function createTable(data) {
     });
 
     let ecoLabelsString = productEcoLabels.join(", ");
-    //let designer = row.designer; // TODO use
-    //let mesurementsLenght = row.measurement.lenght;
-    //let mesurementsWidth = row.measurement.width;
-   // let mesurementsHeight = row.measurement.height;
-    //  let subCategories = row.subCategories;
-    //let co2Mesurability = row.co2Mesurability;
-    // let ecoTests
 
+    let ecoTestList = [];
+    Object.values(row.ecoTests).forEach(ecoTest => {
+      ecoTestList.push(ecoTest.ecoTestName);
+    })
+    let ecoTestString = ecoTestList.join(", ");
 
     table += `<tr id="supplier-id-${row.productId}" data-bs-toggle="collapse" data-bs-target="#collapseExample-${row.productId}" aria-expanded="false" aria-controls="collapseExample">
     <td>${row.productId}</td>
@@ -143,15 +141,21 @@ function createTable(data) {
     <tr class="collapse out" id="collapseExample-${row.productId}"><td colspan="6"><div>
 
     <div class="row">
-      <div class="col">
+      <div class="col-2">
         <img src="${row.imageLink}" class="float-start" alt="" height=200 width=200">
       </div>
-      <div class="col-6">
-          <p><u>${row.name}</u></p>
+      <div class="col-5">
+          <h3>${row.name}</h3>
           <p>${row.description}</p>
-          <p><a href="${row.brochureLink}">Ref. link</a></p>
       </div>
-    <div class="col">
+      <div class="col-3">
+          <p>h:<strong>${row.measurement.width / 10} cm</strong> x b:<strong>${row.measurement.height / 10} cm</strong> x d:<strong>${row.measurement.length / 10} cm</strong></p>
+          <p>Designer: <strong>${row.designer}</strong></p>
+          <p>CO2 measurability: <strong>${row.co2Measurability}</strong></p>
+          <p>ECO test: <strong>${ecoTestString}</strong></p>
+          <p><a href="${row.brochureLink}">Hent brochure</a></p>
+      </div>
+    <div class="col-2">
       <button type="button" class="btn btn-danger pull-right delete-product">Slet</button>
       <button type="button" data-bs-target="#supplier-update-product" data-bs-toggle="modal" class="btn btn-primary pull-right edit-product mx-2 ">Redigér</button>
     </div>

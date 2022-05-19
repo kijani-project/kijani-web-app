@@ -1,4 +1,5 @@
 import {HttpClient} from "src/scripts/module/HttpClient";
+import {ProductCard} from "src/scripts/module/ProductCard";
 
 const productEndpoint = restApi + "/products";
 const categoryEndpoint = restApi + "/categories";
@@ -32,42 +33,11 @@ function createBanner(category) {
 }
 
 async function createRowOfCards(products) {
-
-  let productsPerRow = 4;
-  let maxLength = 100;
-
   for (let productId = 0; productId < productsPerRow; productId++) {
-
-    if (products[productId] !== undefined) {
-      let description = textEllipsis(products[productId].description, maxLength);
-      cardDiv.innerHTML += `
-    <div class="col-${12 / productsPerRow} pb-xl-5">
-      <div class="card mx-auto">
-        <img src="${products[productId].imageLink}" class="card-img-top" alt="" loading="lazy">
-          <div class="card-body">
-            <p class="card-text"><strong>${products[productId].name}</strong></p>
-            <p class="card-text">${description}</p>
-          </div>
-      </div>
-    </div>`;
-    }
+    cardDiv.innerHTML += new ProductCard(products[productId]).create();
   }
 }
 
 window.addEventListener("load", async () => {
   await createCategoryBlocks();
 });
-
-function textEllipsis(str, maxLength, {side = "end", ellipsis = "..."} = {}) {
-  if (str.length > maxLength) {
-    switch (side) {
-      case "start":
-        return ellipsis + str.slice(-(maxLength - ellipsis.length));
-      case "end":
-      default:
-        return str.slice(0, maxLength - ellipsis.length) + ellipsis;
-    }
-  }
-
-  return str;
-}
