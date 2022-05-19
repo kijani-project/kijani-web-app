@@ -42,7 +42,6 @@ async function showProductsByDesigner(designerParam) {
 async function showProductsByProductEcoLabel(productEcoLabelParam) {
   const productEcoLabel = await new HttpClient(productEcoLabelEndpoint + "/" + productEcoLabelParam).get()
     .catch(elementNotFound);
-  console.log(productEcoLabel);
   updateHeaderOne(productEcoLabel.type);
   await createProductCards(productEndpoint + "?productEcoLabelId=" + productEcoLabel.productEcoLabelId);
 }
