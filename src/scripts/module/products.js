@@ -21,7 +21,7 @@ async function createPageContent() {
   } else if (productEcoLabelParam) {
     await showProductsByProductEcoLabel(productEcoLabelParam);
   } else if (designerParam) {
-    //await showProductsByDesigner(designerParam);
+    await showProductsByDesigner(designerParam);
   } else {
     await showProducts();
   }

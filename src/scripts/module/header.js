@@ -48,5 +48,5 @@ async function updateDropdownMenuProductDesigners() {
 window.addEventListener("load", async () => {
   await updateDropdownMenuCategories();
   await updateDropdownMenuProductEcoLabels();
-  //await updateDropdownMenuProductDesigners();
+  await updateDropdownMenuProductDesigners();
 });
