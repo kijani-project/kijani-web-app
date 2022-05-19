@@ -9,13 +9,12 @@ const StylelintPlugin = require('stylelint-webpack-plugin');
 // dev server configuration
 const devServerConfiguration = {
   host: 'localhost',
-  server: {
-    baseDir: ['dist']
-  },
   port: 8080,
   open: 'external',
   reload: false,
-  watch: true
+  watch: true,
+  notify: true,
+  reloadDelay: 0,
 };
 
 // eslint-disable-next-line no-unused-vars
@@ -142,15 +141,21 @@ module.exports = function (env, args) {
       }),
       new BrowserSyncPlugin({
         ...devServerConfiguration,
-        files: ['./src/**/*'],
+        server: {
+          baseDir: ['dist']
+        },
+        files: [path.resolve(__dirname, 'src/**/*')],
         ghostMode: {
           location: false,
         },
         injectChanges: true,
         logFileChanges: true,
-        notify: true,
-        reloadDelay: 0,
-      }),
+        },
+        {
+          // prevent BrowserSync from reloading the page
+          // and let Webpack Dev Server take care of this
+          reload: false
+        }),
       new ESLintPlugin({
         emitError: true,
         emitWarning: true,
