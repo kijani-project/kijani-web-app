@@ -11,6 +11,10 @@ if (document.querySelectorAll("#supplier-page").length) {
   import("src/scripts/module/supplier")
 }
 
-if (document.querySelectorAll("#product-page").length) {
-  import("src/scripts/module/products")
+if (document.querySelectorAll("#home-page").length) {
+  import("src/scripts/module/home")
+}
+
+if (document.querySelectorAll("#category-page").length) {
+  import("src/scripts/module/category")
 }
