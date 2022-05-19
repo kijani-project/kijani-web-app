@@ -15,6 +15,6 @@ if (document.querySelectorAll("#home-page").length) {
   import("src/scripts/module/home")
 }
 
-if (document.querySelectorAll("#category-page").length) {
-  import("src/scripts/module/category")
+if (document.querySelectorAll("#product-page").length) {
+  import("src/scripts/module/products")
 }

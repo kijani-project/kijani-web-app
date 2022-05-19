@@ -2,8 +2,8 @@ import {HttpClient} from "src/scripts/module/HttpClient";
 
 const productEndpoint = restApi + "/products";
 const categoryEndpoint = restApi + "/categories";
-const cardDiv = document.getElementById("category-row");
-const headerOne = document.getElementById("category-title");
+const cardDiv = document.getElementById("product-row");
+const headerOne = document.getElementById("product-title");
 
 async function createPageContent() {
   const url = new URL(window.location.href);
