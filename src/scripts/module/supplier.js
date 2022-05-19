@@ -141,21 +141,20 @@ function createTable(data) {
     <tr class="collapse out" id="collapseExample-${row.productId}"><td colspan="6"><div>
 
     <div class="row">
-      <div class="col-2">
+      <div class="col-md-2">
         <img src="${row.imageLink}" class="float-start" alt="" height=200 width=200">
       </div>
-      <div class="col-5">
+      <div class="col-md-5">
           <h3>${row.name}</h3>
           <p>${row.description}</p>
       </div>
-      <div class="col-3">
-          <p>h:<strong>${row.measurement.width / 10} cm</strong> x b:<strong>${row.measurement.height / 10} cm</strong> x d:<strong>${row.measurement.length / 10} cm</strong></p>
+      <div class="col-md-3">
           <p>Designer: <strong>${row.designer}</strong></p>
           <p>CO2 measurability: <strong>${row.co2Measurability}</strong></p>
           <p>ECO test: <strong>${ecoTestString}</strong></p>
           <p><a href="${row.brochureLink}">Hent brochure</a></p>
       </div>
-    <div class="col-2">
+    <div class="col-md-2">
       <button type="button" class="btn btn-danger pull-right delete-product">Slet</button>
       <button type="button" data-bs-target="#supplier-update-product" data-bs-toggle="modal" class="btn btn-primary pull-right edit-product mx-2 ">Redigér</button>
     </div>
@@ -163,6 +162,7 @@ function createTable(data) {
 
 </div></td></tr></tr>`;
   }
+//<p>h:<strong>${row.measurement.width / 10} cm</strong> x b:<strong>${row.measurement.height / 10} cm</strong> x d:<strong>${row.measurement.length / 10} cm</strong></p>
 
   productTable.innerHTML = table;
 }
