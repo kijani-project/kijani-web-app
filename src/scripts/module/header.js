@@ -21,7 +21,7 @@ async function updateDropdownMenuProductEcoLabels() {
   const categories = await new HttpClient(productEcoLabelsEndpoint).get();
 
   const categoryUl = document.querySelector('[aria-labelledby="navbarDropdownMenuProductEcoLabels"]');
-  const pageName = "miljomarke";
+  const pageName = "productEcoLabel";
   const productHtmlPage = "produkter.html";
 
   Object.values(categories).forEach(el => {

@@ -1,21 +1,47 @@
 import {HttpClient} from "src/scripts/module/HttpClient";
+import {ProductCard} from "src/scripts/module/ProductCard";
 
 const productEndpoint = restApi + "/products";
 const categoryEndpoint = restApi + "/categories";
+const productEcoLabelEndpoint = restApi + "/productEcoLabels";
+const subCategoryEndpoint = restApi + "/subCategories"
+
 const cardDiv = document.getElementById("product-row");
 const headerOne = document.getElementById("product-title");
 
 async function createPageContent() {
   const url = new URL(window.location.href);
   const categoryId = url.searchParams.get("categoryId");
+  const productEcoLabelId = url.searchParams.get("productEcoLabelId");
 
   const category = await new HttpClient(categoryEndpoint + "/" + categoryId).get()
     .catch(noCategory);
 
-  if (category !== undefined) {
+  const productEcoLabel = await new HttpClient(productEcoLabelEndpoint + "/" + productEcoLabelId).get()
+    .catch(noCategory);
+
+  const subCategories = await new HttpClient(subCategoryEndpoint).get();
+
+  if (category) {
     updateHeaderOne(category);
-    await createCards(category)
+    updateSubCategories(subCategories);
+    await createCards(category);
+  } else if (productEcoLabel) {
+    updateHeaderOne(category);
+    await createProductEcoLabelCards(productEcoLabel);
   }
+}
+
+function updateSubCategories(subCategories) {
+  let subCategoryList = [];
+
+  Object.values(subCategories).forEach(subCategory => {
+    subCategoryList.push(subCategory.subCategoryName);
+  })
+
+  let subCategoriesSeparated = subCategoryList.join(", ");
+
+  cardDiv.innerHTML = `<div class="text-center mb-5"><p>${subCategoriesSeparated}</p></div>`;
 }
 
 function updateHeaderOne(category) {
@@ -42,18 +68,29 @@ async function createCards(category) {
   }
 }
 
-function createCard(product) {
-  let productsPerRow = 4;
+async function createProductEcoLabelCards(productEcoLabel) {
+  let endpoint;
 
-  cardDiv.innerHTML += `
-    <div class="col-${12 / productsPerRow} pb-xl-5">
-      <div class="card mx-auto">
-        <img src="${product.imageLink}" class="card-img-top" alt="" loading="lazy">
-          <div class="card-body">
-            <p class="card-text"><strong>${product.name}</strong></p>
-          </div>
-      </div>
-    </div>`;
+  if (productEcoLabel.productEcoLabelId != null) {
+    endpoint = productEndpoint + "?productEcoLabelId=" + productEcoLabel.productEcoLabelId;
+  } else {
+    endpoint = productEndpoint;
+  }
+
+  const products = await new HttpClient(endpoint).get();
+
+  if (products.length) {
+    Object.values(products).forEach(product => {
+      createCard(product);
+    })
+  } else {
+    noProducts();
+  }
+}
+
+function createCard(product) {
+  cardDiv.innerHTML += new ProductCard(product).create();
+
 }
 
 function noProducts() {
