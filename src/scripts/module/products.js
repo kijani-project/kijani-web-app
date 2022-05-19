@@ -4,7 +4,6 @@ import {ProductCard} from "src/scripts/module/ProductCard";
 const productEndpoint = restApi + "/products";
 const categoryEndpoint = restApi + "/categories";
 const productEcoLabelEndpoint = restApi + "/productEcoLabels";
-const subCategoryEndpoint = restApi + "/subCategories"
 const designerEndpoint = restApi + "/designer"
 
 const cardDiv = document.getElementById("product-row");
@@ -49,7 +48,7 @@ async function showProductsByProductEcoLabel(productEcoLabelParam) {
 async function showProductsByCategory(categoryParam) {
   const category = await new HttpClient(categoryEndpoint + "/" + categoryParam).get()
     .catch(elementNotFound);
-  const subCategories = await new HttpClient(subCategoryEndpoint).get();
+  const subCategories = category.subCategories;
   updateHeaderOne(category.categoryName);
   updateSubCategories(subCategories);
   await createProductCards(productEndpoint + "?categoryId=" + category.categoryId);
