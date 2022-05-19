@@ -1,6 +1,5 @@
 import {HttpClient} from "src/scripts/module/HttpClient";
 
-
 async function updateDropdownMenuCategories() {
   const categoryEndpoint = restApi + "/categories";
   const categoryUl = document.querySelector('[aria-labelledby="navbarDropdownMenuCategories"]');
@@ -25,7 +24,7 @@ async function updateDropdownMenuProductEcoLabels() {
   Object.values(categories).forEach(el => {
     let url = new URL(domain + "/" + productHtmlPage);
     url.searchParams.append(pageName, el.productEcoLabelId)
-    categoryUl.innerHTML += `<li><a class="dropdown-item" href="${url}">${el.productEcoLabelName}</a></li>`;
+    categoryUl.innerHTML += `<li><a class="dropdown-item" href="${url}">${el.type}</a></li>`;
   })
 }
 

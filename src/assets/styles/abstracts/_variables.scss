@@ -23,11 +23,11 @@ $success: $green !default;
 $info: $cyan !default;
 $warning: $yellow !default;
 $danger: $red !default;
-$light: material-color('grey', '50') !default;
+$light: material-color('grey', '100') !default;
 $dark: material-color('grey', '900') !default;
 
 $text-color: material-color('grey', '800');
-$text-color-contrast: material-color('grey', '50');
+$text-color-contrast: material-color('grey', '200');
 
 // Typography
 //
