@@ -6,7 +6,7 @@ async function updateDropdownMenuCategories() {
 
   const categoryUl = document.querySelector('[aria-labelledby="navbarDropdownMenuCategories"]');
   const paramName = "categoryId";
-  const productHtmlPage = "product.html";
+  const productHtmlPage = "produkter.html";
 
   Object.values(categories).forEach(category => {
     let url = new URL(window.location.origin + "/" + productHtmlPage);
