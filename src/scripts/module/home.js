@@ -28,13 +28,17 @@ function createHeader(category) {
 function createBanner(category) {
   cardDiv.innerHTML += `<div class="pb-xl-3">
     <img alt="${category.categoryName}" loading="lazy"
-         class="banner-img pb-5" src="${category.imageLink}" style="width: 100%">
+         class="banner-img pb-5 w-100" src="${category.imageLink}">
   </div>`;
 }
 
 async function createRowOfCards(products) {
-  for (let productId = 0; productId < productsPerRow; productId++) {
-    cardDiv.innerHTML += new ProductCard(products[productId]).create();
+  const shuffledProducts = Object.values(products).sort(() => 0.5 - Math.random());
+
+  for (let i = 0; i < productsPerRow; i++) {
+    if (shuffledProducts[i] !== undefined) {
+      cardDiv.innerHTML += new ProductCard(shuffledProducts[i]).create();
+    }
   }
 }
 
