@@ -28,7 +28,7 @@ function createHeader(category) {
 function createBanner(category) {
   cardDiv.innerHTML += `<div class="pb-xl-3">
     <img alt="${category.categoryName}" loading="lazy"
-         class="banner-img pb-5" src="${category.imageLink}" style="width: 100%">
+         class="banner-img pb-5 w-100" src="${category.imageLink}">
   </div>`;
 }
 
