@@ -33,12 +33,7 @@ function createBanner(category) {
 }
 
 async function createRowOfCards(products) {
-  const array = [];
-
-  Object.values(products).forEach(product => {
-    array.push(product)
-  })
-
+  const array = Object.values(products);
   const shuffledArray = array.sort(() => 0.5 - Math.random());
 
   for (let i = 0; i < productsPerRow; i++) {
