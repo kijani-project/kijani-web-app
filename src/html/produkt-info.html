@@ -12,7 +12,7 @@ ${ require('src/html/partials/header.html') }
 <main id="product-info">
 
   <div class="container">
-    <h1 class="text-center pb-5" id="product-title1"></h1>
+    <h2 class="text-center pb-5"  id="product-header"></h2>
     <div id="product" class="text-center">
       <img
         src="https://sw28470.sfstatic.io/upload_dir/shop/_0012_DEDON-Tibbo-2-seater.jpg"
@@ -22,12 +22,9 @@ ${ require('src/html/partials/header.html') }
     <div class="col-s-4 col-m-5 col-l-5 col-xl-11">
       <dl class="row">
         <dt class="col-sm-3">Navn</dt>
-        <dd class="col-sm-9">Sofa</dd>
-        <dt class="col-sm-3">Kategori</dt>
-        <dd class="col-sm-9">Uddannelse</dd>
-
+        <dd class="col-sm-9" id="product-name"></dd>
         <dt class="col-sm-3">Beskrivelse</dt>
-        <dd class="col-sm-9">
+        <dd class="col-sm-9"id="product-desc">
           <p>With the objective of recreating HAYs iconic AAC chair from a more sustainable
             perspective, the About A Chair AAC 12 ECO uses recycled plastic (PP) to form the gently curved, open shell and
             symmetrical solid base that is consistent with the rest of the series. The lack of armrests ensures a clean,
@@ -39,17 +36,19 @@ ${ require('src/html/partials/header.html') }
         </dd>
 
         <dt class="col-sm-3">Designer</dt>
-        <dd class="col-sm-9">50 Cent</dd>
+        <dd class="col-sm-9" id="product-designers"></dd>
 
         <dt class="col-sm-3 text-truncate">Miljø-certificering</dt>
-        <dd class="col-sm-9">Bitch ass E-Branch</dd>
+        <dd class="col-sm-9" id="product-ecolabel"></dd>
 
         <dt class="col-sm-3">Mål</dt>
-        <dd class="col-sm-9">
-          <dl class="row">
-            <dd class="col-sm-8">Bredde: </dd>
-            <dd class="col-sm-8">Dybde: </dd>
-            <dd class="col-sm-8">Højde: </dd>
+        <dd class="col-sm-9"> i mm
+        <dt class="col-sm-3">Bredde:</dt>
+            <dd class="col-sm-8"id="product-mesurement-w">
+        <dt class="col-sm-3">Dybde:</dt>
+            <dd class="col-sm-8" id="product-mesurement-l"></dd>
+        <dt class="col-sm-3">Højde:</dt>
+            <dd class="col-sm-8" id="product-mesurement-h"></dd>
           </dl>
         </dd>
       </dl>
@@ -62,17 +61,3 @@ ${ require('./partials/footer.html') }
 </body>
 </html>
 
-<!-- <p>Navn </p>
-    <p  class="align-middle ms-"><span>Beskrivelse:</span> With the objective of recreating HAYs iconic AAC chair from a more sustainable
-      perspective, the About A Chair AAC 12 ECO uses recycled plastic (PP) to form the gently curved, open shell and
-      symmetrical solid base that is consistent with the rest of the series. The lack of armrests ensures a clean,
-      clutter-free silhouette, whilst the shaped back provides optimal comfort. The wooden frame with elegant, rounded
-      legs conveys warmth and character, and ensures greater stability and a longer lifetime. The recycled shell is
-      available in eco black and the base is available in solid FSC-certified oak with a water-based lacquer. The chair
-      is EU Ecolabelled as a sign of environmental commitment, along with the other models in the ECO series – the AAC
-      22 ECO and AAS 32 in low and high versions.</p>
-    <p>Mål længde:</p>
-    <p>Mål Brede:</p>
-    <p>Mål Højde:</p>
-    <p>Designer:</p>
-    <p>Ecolabel:</p> -->

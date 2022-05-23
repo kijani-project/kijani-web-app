@@ -20,5 +20,5 @@ if (document.querySelectorAll("#product-page").length) {
 }
 
 if (document.querySelectorAll("#product-info").length) {
-  import("src/scripts/module/products")
+  import("src/scripts/module/product-info")
 }
