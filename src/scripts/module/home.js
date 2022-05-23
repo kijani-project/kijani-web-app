@@ -34,7 +34,9 @@ function createBanner(category) {
 
 async function createRowOfCards(products) {
   for (let productId = 0; productId < productsPerRow; productId++) {
-    cardDiv.innerHTML += new ProductCard(products[productId]).create();
+    if (products[productId] !== undefined) {
+      cardDiv.innerHTML += new ProductCard(products[productId]).create();
+    }
   }
 }
 

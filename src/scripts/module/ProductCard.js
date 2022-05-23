@@ -7,8 +7,7 @@ export class ProductCard {
   create() {
     let description = this.textEllipsis(this.product.description, productDescriptionCard);
 
-    if (this.product !== undefined) {
-      return `<div class="col-md-${12 / productsPerRow} pb-xl-5">
+    return `<div class="col-md-${12 / productsPerRow} pb-xl-5">
       <div class="card mx-auto">
         <a href="#"><img src="${this.product.imageLink}" class="card-img-top" alt="" loading="lazy"></a>
           <div class="card-body">
@@ -17,7 +16,6 @@ export class ProductCard {
           </div>
       </div>
     </div>`;
-    }
   }
 
   textEllipsis(str, maxLength, {side = "end", ellipsis = "..."} = {}) {
