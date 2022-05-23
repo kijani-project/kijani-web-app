@@ -30,8 +30,9 @@ ${ require('src/html/partials/header.html') }
 
 ${ require('./partials/footer.html') }
 
+<!-- WORKING -->
 <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="exampleModal" tabindex="-1">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Opret produkt</h5>
@@ -39,49 +40,60 @@ ${ require('./partials/footer.html') }
       </div>
 
       <div class="modal-body">
-        <form>
+        <div class="modal-body">
 
-          <div class="mb-3">
-            <label class="col-form-label" for="supplier-category">Kategori:</label>
-            <select class="form-select" id="supplier-category"></select>
-          </div>
+          <form>
+            <div class="row">
 
-          <div class="mb-3" hidden>
-            <label class="col-form-label" for="supplier-subcategory" size="3">Underkategori:</label>
-            <select class="form-select" id="supplier-subcategory" multiple></select>
-          </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="col-form-label" for="supplier-category">Kategori:</label>
+                  <select class="form-select" id="supplier-category"></select>
+                </div>
 
-          <div class="mb-3">
-            <label class="col-form-label" for="supplier-item-number">Vare nr.</label>
-            <input class="form-control" id="supplier-item-number" inputmode="numeric" type="text">
-          </div>
+                <div class="mb-3" hidden>
+                  <label class="col-form-label" for="supplier-subcategory" size="3">Underkategori:</label>
+                  <select class="form-select" id="supplier-subcategory" multiple></select>
+                </div>
 
-          <div class="mb-3">
-            <label class="col-form-label" for="supplier-product-name">Produkt navn</label>
-            <input class="form-control" id="supplier-product-name" type="text">
-          </div>
+                <div class="mb-3">
+                  <label class="col-form-label" for="supplier-product-name">Produkt navn</label>
+                  <input class="form-control" id="supplier-product-name" type="text">
+                </div>
 
-          <div class="mb-3">
-            <label class="col-form-label" for="supplier-product-description">Produkt beskrivelse</label>
-            <input class="form-control" id="supplier-product-description" type="text">
-          </div>
+                <div class="mb-3">
+                  <label class="col-form-label" for="supplier-product-description">Produkt beskrivelse</label>
+                  <input class="form-control" id="supplier-product-description" type="text">
+                </div>
 
-          <div class="mb-3">
-            <label class="col-form-label" for="supplier-co2-mesurability">CO2 målbarhed</label>
-            <input class="form-control" id="supplier-co2-mesurability" type="text">
-          </div>
+              </div>
+              <div class="col-md-6">
 
-          <div class="mb-3">
-            <label class="col-form-label" for="supplier-link">Link</label>
-            <input class="form-control" id="supplier-link" type="text">
-          </div>
+                <div class="mb-3">
+                  <label class="col-form-label" for="supplier-item-number">Vare nr.</label>
+                  <input class="form-control" id="supplier-item-number" inputmode="numeric" type="text">
+                </div>
 
-          <div class="mb-3">
-            <label class="col-form-label" for="supplier-image">Image</label>
-            <input class="form-control" id="supplier-image" type="text">
-          </div>
+                <div class="mb-3">
+                  <label class="col-form-label" for="supplier-co2-mesurability">CO2 målbarhed</label>
+                  <input class="form-control" id="supplier-co2-mesurability" type="text">
+                </div>
 
-        </form>
+                <div class="mb-3">
+                  <label class="col-form-label" for="supplier-link">Link</label>
+                  <input class="form-control" id="supplier-link" type="text">
+                </div>
+
+                <div class="mb-3">
+                  <label class="col-form-label" for="supplier-image">Image</label>
+                  <input class="form-control" id="supplier-image" type="text">
+                </div>
+
+              </div>
+            </div>
+          </form>
+
+        </div>
       </div>
 
       <div class="modal-footer">
@@ -115,11 +127,6 @@ ${ require('./partials/footer.html') }
           <div class="mb-3" hidden>
             <label class="col-form-label" for="supplier-update-subcategory" size="3">Underkategori:</label>
             <select class="form-select" id="supplier-update-subcategory" multiple></select>
-          </div>
-
-          <div class="mb-3">
-            <label class="col-form-label" for="supplier-update-item-number">Vare nr.</label>
-            <input class="form-control" id="supplier-update-item-number" inputmode="numeric" type="text">
           </div>
 
           <div class="mb-3">

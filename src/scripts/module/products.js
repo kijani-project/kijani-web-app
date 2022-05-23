@@ -4,7 +4,7 @@ import {ProductCard} from "src/scripts/module/ProductCard";
 const productEndpoint = restApi + "/products";
 const categoryEndpoint = restApi + "/categories";
 const productEcoLabelEndpoint = restApi + "/productEcoLabels";
-const designerEndpoint = restApi + "/designer"
+const designerEndpoint = restApi + "/designers"
 
 const cardDiv = document.getElementById("product-row");
 const headerOne = document.getElementById("product-title");
@@ -35,7 +35,8 @@ async function showProductsByDesigner(designerParam) {
   const designer = await new HttpClient(designerEndpoint + "/" + designerParam).get()
     .catch(elementNotFound);
   updateHeaderOne(designer.name);
-  await createProductCards(productEndpoint + "?designerId=" + designer.name);
+
+  await createProductCards(productEndpoint + "?designerId=" + designer.designerId);
 }
 
 async function showProductsByProductEcoLabel(productEcoLabelParam) {
