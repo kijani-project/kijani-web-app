@@ -115,17 +115,10 @@ function createTable(data) {
 
   // Loop to access all rows
   for (let row of data) {
-    let productEcoLabels = [];
-    Object.values(row.productEcoLabels).forEach(el => {
-      productEcoLabels.push(el.type)
-    });
-
+    let productEcoLabels = Object.values(row.productEcoLabels);
     let ecoLabelsString = productEcoLabels.join(", ");
 
-    let ecoTestList = [];
-    Object.values(row.ecoTests).forEach(ecoTest => {
-      ecoTestList.push(ecoTest.ecoTestName);
-    })
+    let ecoTestList = Object.values(row.ecoTests);
     let ecoTestString = ecoTestList.join(", ");
 
     table += `<tr id="supplier-id-${row.productId}" data-bs-toggle="collapse" data-bs-target="#collapseExample-${row.productId}" aria-expanded="false" aria-controls="collapseExample">

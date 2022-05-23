@@ -2,6 +2,9 @@ import {HttpClient} from "src/scripts/module/HttpClient";
 
 const productHtmlPage = "produkter.html";
 
+const designersEndpoint = restApi + "/designers";
+const productEcoLabelsEndpoint = restApi + "/productEcoLabels";
+
 async function updateDropdownMenuCategories() {
   const categoryEndpoint = restApi + "/categories";
   const categories = await new HttpClient(categoryEndpoint).get();
@@ -18,7 +21,7 @@ async function updateDropdownMenuCategories() {
 }
 
 async function updateDropdownMenuProductEcoLabels() {
-  const productEcoLabelsEndpoint = restApi + "/productEcoLabels";
+
   const productEcoLabels = await new HttpClient(productEcoLabelsEndpoint).get();
 
   const categoryUl = document.querySelector('[aria-labelledby="navbarDropdownMenuProductEcoLabels"]');
@@ -32,10 +35,10 @@ async function updateDropdownMenuProductEcoLabels() {
 }
 
 async function updateDropdownMenuProductDesigners() {
-  const productEcoLabelsEndpoint = restApi + "/designers";
-  const designers = await new HttpClient(productEcoLabelsEndpoint).get();
 
-  const designerUl = document.querySelector('[aria-labelledby="navbarDropdownMenuProductEcoLabels"]');
+  const designers = await new HttpClient(designersEndpoint).get();
+
+  const designerUl = document.querySelector('[aria-labelledby="navbarDropdownMenuProductDesigners"]');
   const pageName = "designerId";
 
   Object.values(designers).forEach(designer => {
