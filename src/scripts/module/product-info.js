@@ -7,7 +7,7 @@ const productEcoLabelEndpoint = restApi + "/productEcoLabels";
 const designerEndpoint = restApi + "/designer"
 
 const cardDiv = document.getElementById("product-row");
-const headerOne = document.getElementById("product-title");
+const headerOne = document.getElementById("product-title1");
 
 async function createPageContent() {
   const url = new URL(window.location.href);
@@ -22,26 +22,33 @@ async function createPageContent() {
   } else if (designerParam) {
     await showProductsByDesigner(designerParam);
   } else {
-    await showProducts();
+    await showProducts1();
   }
 }
 
-async function showProducts() {
-  updateHeaderOne("Produkter");
+
+let data = productEndpoint +"/"+6;
+let data1 = data.name;
+console.log(data1);
+async function showProducts1() {
+  await updateHeaderOne1(data1);
   await createProductCards(productEndpoint);
 }
+
+
+//-------------------------NOT Relevant for us------------------------------//
 
 async function showProductsByDesigner(designerParam) {
   const designer = await new HttpClient(designerEndpoint + "/" + designerParam).get()
     .catch(elementNotFound);
-  updateHeaderOne(designer.name);
+  updateHeaderOne1(designer.name);
   await createProductCards(productEndpoint + "?designerId=" + designer.name);
 }
 
 async function showProductsByProductEcoLabel(productEcoLabelParam) {
   const productEcoLabel = await new HttpClient(productEcoLabelEndpoint + "/" + productEcoLabelParam).get()
     .catch(elementNotFound);
-  updateHeaderOne(productEcoLabel.type);
+  updateHeaderOne1(productEcoLabel.type);
   await createProductCards(productEndpoint + "?productEcoLabelId=" + productEcoLabel.productEcoLabelId);
 }
 
@@ -49,7 +56,7 @@ async function showProductsByCategory(categoryParam) {
   const category = await new HttpClient(categoryEndpoint + "/" + categoryParam).get()
     .catch(elementNotFound);
   const subCategories = category.subCategories;
-  updateHeaderOne(category.categoryName);
+  updateHeaderOne1(category.categoryName);
   updateSubCategories(subCategories);
   await createProductCards(productEndpoint + "?categoryId=" + category.categoryId);
 }
@@ -66,7 +73,12 @@ function updateSubCategories(subCategories) {
   cardDiv.innerHTML = `<div class="text-center mb-5"><p>${subCategoriesSeparated}</p></div>`;
 }
 
-function updateHeaderOne(title) {
+
+
+//-------------------------Relevant for us------------------------------//
+
+
+function updateHeaderOne1(title) {
   headerOne.innerText = title;
 }
 
@@ -86,6 +98,10 @@ async function createProductCards(endpoint) {
 function createCard(product) {
   cardDiv.innerHTML += new ProductCard(product).create();
 }
+
+
+//-------------------------Not relevant for us------------------------------//
+
 
 function productsNotFound() {
   cardDiv.innerHTML = "Der blev ikke fundet nogen produkter.";
