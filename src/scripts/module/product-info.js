@@ -25,10 +25,14 @@ async function getProduct() {
   document.getElementById("product-measurement-w").innerText = width;
   document.getElementById("product-measurement-l").innerText = length;
   document.getElementById("product-measurement-h").innerText = height;
+
   let productImage = document.getElementById("product-image");
   productImage.setAttribute("src", product.imageLink);
   let productEcolabel = document.getElementById("product-ecolabel");
   productEcolabel.innerHTML = `<img src="${product.productEcoLabels[0].imageLink}"id="ecoId">`
+
+
+
 //Todo loop to show all ecolabels
   //let ecolabelImg = document.getElementById("product-ecolabelImg");
   //ecolabelImg.setAttribute("src",product.productEcoLabels[0].imageLink)
