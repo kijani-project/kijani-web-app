@@ -50,7 +50,7 @@ async function showProductsByCategory(categoryParam) {
   const category = await new HttpClient(categoryEndpoint + "/" + categoryParam).get()
     .catch(elementNotFound);
   const subCategories = category.subCategories;
-  updateHeaderOne(category.categoryName);
+  updateHeaderOne(category.name);
   updateSubCategories(subCategories);
   await createProductCards(productEndpoint + "?categoryId=" + category.categoryId);
 }
@@ -59,7 +59,7 @@ function updateSubCategories(subCategories) {
   let subCategoryList = [];
 
   Object.values(subCategories).forEach(subCategory => {
-    subCategoryList.push(subCategory.subCategoryName);
+    subCategoryList.push(subCategory.name);
   })
 
   let subCategoriesSeparated = subCategoryList.join(", ");
