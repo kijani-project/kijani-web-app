@@ -139,11 +139,11 @@ function createTable(products) {
         <dt class="col-sm-6">Designer</dt>
         <dd class="col-sm-6">${productDesigners.join(" & ")}</dd>
         <dt class="col-sm-6">Bredde:</dt>
-        <dd class="col-sm-6">${product.measurement.width / 100} cm</dd>
+        <dd class="col-sm-6">${product.measurement.width / 10} cm</dd>
         <dt class="col-sm-6">Dybde:</dt>
-        <dd class="col-sm-6">${product.measurement.length / 100} cm</dd>
+        <dd class="col-sm-6">${product.measurement.length / 10} cm</dd>
         <dt class="col-sm-6">Højde:</dt>
-        <dd class="col-sm-6">${product.measurement.height / 100} cm</dd>
+        <dd class="col-sm-6">${product.measurement.height / 10} cm</dd>
         <dt class="col-sm-6">Miljø-certificering</dt>
         <dd class="col-sm-6">${productEcoLabelsNew.join(" ")}</dd>
       </dl>

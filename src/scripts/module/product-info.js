@@ -17,9 +17,9 @@ async function getProduct() {
   document.getElementById("product-desc").innerText = product.description;
   document.getElementById("product-designers").innerText = designers.join(", ");
 
-  const width = product.measurement.width / 100;
-  const length = product.measurement.length / 100;
-  const height = product.measurement.height / 100;
+  const width = product.measurement.width / 10;
+  const length = product.measurement.length / 10;
+  const height = product.measurement.height / 10;
   document.getElementById("product-measurement-w").innerText = `${width} cm`;
   document.getElementById("product-measurement-l").innerText = `${length} cm`;
   document.getElementById("product-measurement-h").innerText = `${height} cm`;
