@@ -8,8 +8,6 @@ const productEndpoint = restApi + "/products";
 async function getProduct() {
   const product = await new HttpClient(productEndpoint + "/" + productParam).get();
 
-  console.log(product);
-
   let name = product.name;
   let desc = product.description;
   let designers = [];
@@ -41,8 +39,6 @@ async function getProduct() {
   //productEcoLabels.setAttribute("src", product.productEcoLabels[0].imageLink);
   //ecolabelImg.innerHTML=`<img src="${productEcoLabels.imageLink}">`
 
-
-  console.log(name);
 
 
 }
