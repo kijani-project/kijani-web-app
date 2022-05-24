@@ -2,15 +2,12 @@
   max-height: 500px;
   object-fit: cover;
 }
-#ecoId{
-  width: 150px;
-  height: 150px;
-  padding: 0px;
 
-  object-fit: scale-down;
+#ecoId {
+  max-height: 30px;
+  object-fit: cover;
 }
 
-#ecoId:hover{
-  transform: scale(2);
+.product-img {
+  max-height: 500px;
 }
-
