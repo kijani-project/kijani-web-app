@@ -14,39 +14,28 @@ async function getProduct() {
   Object.values(product.designers).forEach(designer => {
     designers.push(designer.name)
   });
-  //let ecolabel = product.productEcoLabels[0].type;
+
   let width = product.measurement.width;
   let length = product.measurement.length;
   let height = product.measurement.height;
+  let productImage = document.getElementById("product-image");
+  let productEcolabel = document.getElementById("product-ecolabel");
+
   document.getElementById("product-name").innerText = name;
   document.getElementById("product-header").innerText = name;
   document.getElementById("product-desc").innerText = desc;
   document.getElementById("product-designers").innerText = designers.join(", ");
-  document.getElementById("product-measurement-w").innerText = width;
-  document.getElementById("product-measurement-l").innerText = length;
-  document.getElementById("product-measurement-h").innerText = height;
+  document.getElementById("product-measurement-w").innerText = width +" cm";
+  document.getElementById("product-measurement-l").innerText = length + " cm";
+  document.getElementById("product-measurement-h").innerText = height + " cm";
 
-  let productImage = document.getElementById("product-image");
   productImage.setAttribute("src", product.imageLink);
-  let productEcolabel = document.getElementById("product-ecolabel");
-  for (let i = 0; i < product.productEcoLabels.length; i++) {
 
+  for (let i = 0; i <3; i++) {
     productEcolabel.innerHTML += `<img class="bg-image hover-zoom" src="${product.productEcoLabels[i].imageLink}" alt="" id="ecoId">`;
   }
-
-
-//Todo loop to show all ecolabels
-  //let ecolabelImg = document.getElementById("product-ecolabelImg");
-  //ecolabelImg.setAttribute("src",product.productEcoLabels[0].imageLink)
-  //let productEcoLabels= [];
-  //Object.values(product.productEcoLabels).forEach(el => {productEcoLabels.push (el.imageLink)});
-  //document.getElementById("product-ecolabelImg").innerText= productEcoLabels.join(" ");
-  //let productEcoLabels = document.getElementById("product-ecolabelImg");
-  //productEcoLabels.setAttribute("src", product.productEcoLabels[0].imageLink);
-  //ecolabelImg.innerHTML=`<img src="${productEcoLabels.imageLink}">`
-
-
 }
+
 
 window.addEventListener("load", async () => {
   await getProduct();
