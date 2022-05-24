@@ -17,6 +17,13 @@ async function getProduct() {
   document.getElementById("product-desc").innerText = product.description;
   document.getElementById("product-designers").innerText = designers.join(", ");
 
+  Object.values(product.designers).forEach(designers => {
+    document.getElementById("product-designers").innerHTML += `
+        <span data-bs-toggle="tooltip" title="${designers.name}">
+            <img class="bg-image hover-zoom" src="${designers.imageLink}" alt="" id="ecoId">
+        </span>`;
+  });
+
   const width = product.measurement.width / 10;
   const length = product.measurement.length / 10;
   const height = product.measurement.height / 10;
