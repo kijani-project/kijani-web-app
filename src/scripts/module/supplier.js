@@ -8,17 +8,12 @@ const supplierId = url.searchParams.get("supplierId");
 const supplierEndpoint = restApi + "/suppliers";
 const productEndpoint = restApi + "/products"
 const categoryEndpoint = restApi + "/categories";
+const productEcoLabelsEndpoint = restApi + "/productEcoLabels";
+const designersEndpoint = restApi + "/designers"
 
 const productTable = document.getElementById("supplier-table");
-
-const supplierProductDescription = document.getElementById("supplier-product-description");
-const supplierProductName = document.getElementById("supplier-product-name");
-const supplierItemNumber = document.getElementById("supplier-item-number");
-const supplierBrochureLink = document.getElementById("supplier-link");
-const supplierImage = document.getElementById("supplier-image");
-const supplierCategory = document.getElementById("supplier-category");
-const supplierSubcategory = document.getElementById("supplier-subcategory");
-
+const supplierCategory = document.getElementById("supplier-categories");
+const updateProductBtn = document.getElementById("supplier-update-save");
 const saveProductBtn = document.getElementById("supplier-post-save");
 
 /**
@@ -41,8 +36,6 @@ async function updateTable() {
  */
 function deleteButton() {
   const deleteButtons = document.querySelectorAll('.delete-product');
-
-  // Trigger the delete button
   deleteButtons.forEach(el => el.addEventListener('click', async () => {
     let rowId = getRowId(el);
 
@@ -52,7 +45,7 @@ function deleteButton() {
 
 function getRowId(el) {
   let productId = el.parentElement.closest("tr").id;
-  return productId.split("-").slice(-1).pop(); // GET ID
+  return productId.split("-").slice(-1).pop();
 }
 
 /**
@@ -60,7 +53,6 @@ function getRowId(el) {
  */
 function editButton() {
   const editProductBtn = document.querySelectorAll('.edit-product');
-
   // Trigger the edit button
   editProductBtn.forEach(el => el.addEventListener('click', async () => {
     let productId = getRowId(el);
@@ -81,8 +73,6 @@ function editButton() {
     co2Mesurability.value = currentData.co2Mesurability;
     brochureLink.value = currentData.brochureLink;
 
-    const updateProductBtn = document.getElementById("supplier-update-save");
-
     updateProductBtn.addEventListener("click", async () => {
       let data = {
         itemNumber: itemNumber.value,
@@ -99,11 +89,7 @@ function editButton() {
   }));
 }
 
-/**
- * Build the table from a JSON object
- * @param data
- */
-function createTable(data) {
+function createTable(products) {
   let table = `<tr>
         <th scope="col">#</th>
         <th scope="col">Image</th>
@@ -113,39 +99,42 @@ function createTable(data) {
         <th></th>
      </tr>`;
 
-  // Loop to access all rows
-  for (let row of data) {
-    let productEcoLabels = Object.values(row.productEcoLabels);
-    let ecoLabelsString = productEcoLabels.join(", ");
+  for (let product of products) {
+    let productEcoLabels = []; // Eco labels
+    Object.values(product.productEcoLabels).forEach(el => {
+      productEcoLabels.push(el.type);
+    })
 
-    let ecoTestList = Object.values(row.ecoTests);
-    let ecoTestString = ecoTestList.join(", ");
+    let ecoTests = []; // Eco tests
+    Object.values(product.ecoTests).forEach(el => {
+      ecoTests.push(el.name);
+    })
 
-    table += `<tr id="supplier-id-${row.productId}" data-bs-toggle="collapse" data-bs-target="#collapseExample-${row.productId}" aria-expanded="false" aria-controls="collapseExample">
-    <td>${row.productId}</td>
-    <td><img src="${row.imageLink}" class="zoom" alt="" height=70 width=70"></td>
-    <td>${row.itemNumber}</td>
-    <td>${row.name}</td>
-    <td>${ecoLabelsString}</td>
+    table += `<tr id="supplier-id-${product.productId}" data-bs-toggle="collapse" data-bs-target="#collapseExample-${product.productId}" aria-expanded="false" aria-controls="collapseExample">
+    <td>${product.productId}</td>
+    <td><img src="${product.imageLink}" class="zoom" alt="" height=70 width=70"></td>
+    <td>${product.itemNumber}</td>
+    <td>${product.name}</td>
+    <td>${productEcoLabels.join(", ")}</td>
     <td class="text-end">
        <i class="fa fa-sort-desc" aria-hidden="true"></i>
     </td>
 
-    <tr class="collapse out" id="collapseExample-${row.productId}"><td colspan="6"><div>
+    <tr class="collapse out" id="collapseExample-${product.productId}"><td colspan="6"><div>
 
     <div class="row">
       <div class="col-md-2">
-        <img src="${row.imageLink}" class="float-start" alt="" height=200 width=200">
+        <img src="${product.imageLink}" class="float-start" alt="" height=200 width=200">
       </div>
       <div class="col-md-5">
-          <h3>${row.name}</h3>
-          <p>${row.description}</p>
+          <h3>${product.name}</h3>
+          <p>${product.description}</p>
       </div>
       <div class="col-md-3">
-          <p>Designer: <strong>${row.designer}</strong></p>
-          <p>CO2 measurability: <strong>${row.co2Measurability}</strong></p>
-          <p>ECO test: <strong>${ecoTestString}</strong></p>
-          <p><a href="${row.brochureLink}">Hent brochure</a></p>
+          <p>Designer: <strong>${product.designer}</strong></p>
+          <p>CO2 measurability: <strong>${product.co2Measurability}</strong></p>
+          <p>ECO test: <strong>${ecoTests.join(", ")}</strong></p>
+          <p><a href="${product.brochureLink}">Hent brochure</a></p>
       </div>
     <div class="col-md-2">
       <button type="button" class="btn btn-danger pull-right delete-product">Slet</button>
@@ -155,39 +144,22 @@ function createTable(data) {
 
 </div></td></tr></tr>`;
   }
-//<p>h:<strong>${row.measurement.width / 10} cm</strong> x b:<strong>${row.measurement.height / 10} cm</strong> x d:<strong>${row.measurement.length / 10} cm</strong></p>
 
   productTable.innerHTML = table;
 }
 
-/**
- * Delete product by ID
- * @param id
- * @returns {Promise<void>}
- */
 async function deleteProduct(id) {
   await new HttpClient(productEndpoint + '/' + id).delete();
 
   await updateTable();
 }
 
-/**
- * Create Product
- * @param data
- * @returns {Promise<void>}
- */
 async function createProduct(data) {
   await new HttpClient(supplierEndpoint + "/" + supplierId + "/products").post(data);
 
   await updateTable();
 }
 
-/**
- * Update product
- * @param data
- * @param productId
- * @returns {Promise<void>}
- */
 async function updateProduct(data, productId) {
 
   await new HttpClient(productEndpoint + "/" + productId).put(data);
@@ -195,20 +167,88 @@ async function updateProduct(data, productId) {
   location.reload(); // reload page to avoid the same event listener to get triggered several times
 }
 
+async function addSubCategoriesToDropdown(categories) {
+  const allCategories = document.querySelectorAll('#supplier-categories option:checked');
+  const selectedCategories = Array.from(allCategories).map(el => parseInt(el.value));
+
+  const subCategories = document.getElementById("supplier-sub-categories");
+  subCategories.innerHTML = "";
+  subCategories.parentNode.hidden = false;
+
+  Object.values(categories).forEach(category => {
+    if (selectedCategories.includes(category.categoryId)) {
+      Object.values(category.subCategories).forEach(subCategory => {
+        let option = document.createElement("option");
+        option.textContent = subCategory.name;
+        option.value = subCategory.subCategoryId;
+
+        subCategories.append(option);
+      })
+    }
+  });
+}
+
 /**
  * Save product when the form is submitted
  */
 saveProductBtn.addEventListener("click", async () => {
-  const data = {
-    itemNumber: supplierItemNumber.value,
-    name: supplierProductName.value,
-    description: supplierProductDescription.value,
-    imageLink: supplierImage.value,
-    brochureLink: supplierBrochureLink.value // TODO: Add missing data
-  }
 
-  // Add product to database
-  await createProduct(data)
+  const itemNumber = document.getElementById("supplier-item-number");
+  const name = document.getElementById("supplier-product-name");
+  const description = document.getElementById("supplier-product-description");
+  const measurementLength = document.getElementById("supplier-product-measurement-length");
+  const measurementWidth = document.getElementById("supplier-product-measurement-width");
+  const measurementHeight = document.getElementById("supplier-product-measurement-height");
+  const co2Measurability = document.getElementById("supplier-co2-measurability");
+  const imageLink = document.getElementById("supplier-image-link");
+  const brochureLink = document.getElementById("supplier-brochure-link");
+
+  // Product Eco Labels
+  const selectedEcoLabels = document.querySelectorAll('#supplier-product-eco-labels option:checked');
+  const productEcoLabels = [];
+  Object.values(Array.from(selectedEcoLabels).map(el => el.value)).forEach(val => {
+    let obj = {
+      "productEcoLabelId": parseInt(val)
+    };
+    productEcoLabels.push(obj);
+  });
+
+  // Designers
+  const selectedDesigners = document.querySelectorAll('#supplier-designers option:checked');
+  const designers = [];
+  Object.values(Array.from(selectedDesigners).map(el => el.value)).forEach(val => {
+    let obj = {
+      "designerId": parseInt(val)
+    };
+    designers.push(obj);
+  });
+
+  // Sub category
+  const selectedSubCategories = document.querySelectorAll('#supplier-sub-categories option:checked');
+  const subCategories = [];
+  Object.values(Array.from(selectedSubCategories).map(el => el.value)).forEach(val => {
+    let obj = {
+      "subCategoryId": parseInt(val)
+    };
+    subCategories.push(obj);
+  });
+
+  let product = {
+    "productEcoLabels": productEcoLabels,
+    "itemNumber": itemNumber.value,
+    "name": name.value,
+    "description": description.value,
+    "designers": designers,
+    "measurement": {
+      "length": measurementLength.value, "width": measurementWidth.value, "height": measurementHeight.value
+    },
+    "subCategories": subCategories,
+    "co2Measurability": co2Measurability.value,
+    "imageLink": imageLink.value,
+    "brochureLink": brochureLink.value
+  };
+
+  await createProduct(product)
 });
 
 /**
@@ -218,42 +258,55 @@ window.addEventListener("load", async () => {
   await updateTable();
 
   let profile = await new HttpClient(supplierEndpoint + "/" + supplierId + "/profile").get();
-
   document.getElementById("supplier-name").innerText = profile.name;
 
   let data = await new HttpClient(categoryEndpoint).get();
-
   await addCategoriesToDropdown(data);
+
+  await addProductEcoLabelsToDropdown();
+  await addDesignersToDropdown();
 });
 
-async function addCategoriesToDropdown(data) {
-  Object.values(data).forEach(el => {
-    let option = document.createElement("option");
-    option.textContent = el.categoryName;
-    option.value = el.id;
+async function addDesignersToDropdown() {
+  const data = await new HttpClient(designersEndpoint).get();
+  const designers = document.getElementById("supplier-designers");
+  data.sort((a, b) => a.name.localeCompare(b.name)); // Sort from a-z
 
-    supplierCategory.append(option);
-  });
+  Object.values(data).forEach(designer => {
+    let option = document.createElement("option");
+    option.innerText = designer.name;
+    option.value = designer.designerId;
+
+    designers.append(option);
+  })
 }
 
-async function addSubCategoriesToDropdown(data) {
-  supplierSubcategory.innerHTML = "";
+async function addProductEcoLabelsToDropdown() {
+  const data = await new HttpClient(productEcoLabelsEndpoint).get();
+  const ecoLabels = document.getElementById("supplier-product-eco-labels");
 
-  document.getElementById("supplier-subcategory").parentNode.hidden = false; // TODO fix camelcase
+  Object.values(data).forEach(ecoLabel => {
+    let option = document.createElement("option");
+    option.innerText = ecoLabel.type;
+    option.value = ecoLabel.productEcoLabelId;
+
+    ecoLabels.append(option);
+  })
+}
+
+async function addCategoriesToDropdown(data) {
+
+  const categoryNode = document.getElementById("supplier-categories");
 
   Object.values(data).forEach(category => {
+    let option = document.createElement("option");
+    option.innerText = category.name;
+    option.value = category.categoryId;
 
-    if (category.categoryName === supplierCategory.textContent) {
-      Object.values(category.subCategories).forEach(subCategory => {
-        let option = document.createElement("option");
-        option.textContent = subCategory.subCategoryName;
-        option.value = category.id;
-
-        supplierSubcategory.append(option);
-      })
-    }
+    categoryNode.append(option);
   });
 }
+
 
 supplierCategory.addEventListener("click", async () => {
   let data = await new HttpClient(categoryEndpoint).get();
