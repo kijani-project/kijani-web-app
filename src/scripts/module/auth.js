@@ -1,5 +1,5 @@
-const email = "demo@demo.com";
-const password = "demo";
+const email = "flokk@kijani.com";
+const password = "flokk";
 
 function auth() {
   const user = JSON.parse(sessionStorage.getItem("user"));
@@ -12,4 +12,3 @@ function auth() {
 window.addEventListener("load", () => {
   auth();
 });
-

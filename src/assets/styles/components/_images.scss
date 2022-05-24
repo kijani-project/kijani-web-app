@@ -8,6 +8,23 @@
   object-fit: cover;
 }
 
+.product-eco-label-small {
+  max-height: 30px;
+  object-fit: cover;
+}
+
 .product-img {
   max-height: 500px;
+}
+
+.product-img-small {
+  max-height: 70px;
+  width: auto;
+  object-fit: cover;
+}
+
+.product-img-medium {
+  max-height: 200px;
+  width: auto;
+  object-fit: cover;
 }
