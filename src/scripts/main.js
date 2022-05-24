@@ -18,3 +18,7 @@ if (document.querySelectorAll("#home-page").length) {
 if (document.querySelectorAll("#product-page").length) {
   import("src/scripts/module/products")
 }
+
+if (document.querySelectorAll("#product-info").length) {
+  import("src/scripts/module/product-info")
+}
