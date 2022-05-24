@@ -7,9 +7,14 @@
   object-fit: cover;
 }
 #ecoId{
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   padding: 0px;
 
   object-fit: scale-down;
 }
+
+#ecoId:hover{
+  transform: scale(2);
+}
+

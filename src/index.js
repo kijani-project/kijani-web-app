@@ -9,3 +9,6 @@ import 'src/assets/images/favicon.ico'
 
 // Web App Manifest
 import 'src/site.webmanifest'
+
+//Images
+import 'src/assets/images/BlueAngel.png'
