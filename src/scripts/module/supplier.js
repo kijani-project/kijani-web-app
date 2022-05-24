@@ -16,10 +16,6 @@ const supplierCategory = document.getElementById("supplier-categories");
 const updateProductBtn = document.getElementById("supplier-update-save");
 const saveProductBtn = document.getElementById("supplier-post-save");
 
-/**
- * Show table
- * @returns {Promise<void>}
- */
 async function updateTable() {
   const data = await new HttpClient(supplierEndpoint + "/" + supplierId + "/products").get();
   createTable(data);
@@ -168,8 +164,8 @@ async function updateProduct(data, productId) {
 }
 
 async function addSubCategoriesToDropdown(categories) {
-  const allCategories = document.querySelectorAll('#supplier-categories option:checked');
-  const selectedCategories = Array.from(allCategories).map(el => parseInt(el.value));
+  const categoryOptions = document.querySelectorAll('#supplier-categories option:checked');
+  const selectedCategories = Array.from(categoryOptions).map(el => parseInt(el.value));
 
   const subCategories = document.getElementById("supplier-sub-categories");
   subCategories.innerHTML = "";
@@ -179,7 +175,7 @@ async function addSubCategoriesToDropdown(categories) {
     if (selectedCategories.includes(category.categoryId)) {
       Object.values(category.subCategories).forEach(subCategory => {
         let option = document.createElement("option");
-        option.textContent = subCategory.name;
+        option.textContent = `${subCategory.name} (${category.name})`;
         option.value = subCategory.subCategoryId;
 
         subCategories.append(option);
