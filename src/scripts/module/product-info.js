@@ -32,7 +32,7 @@ async function getProduct() {
   productImage.setAttribute("src", product.imageLink);
 
   for (let i = 0; i <3; i++) {
-    productEcolabel.innerHTML += `<img class="bg-image hover-zoom" src="${product.productEcoLabels[i].imageLink}" alt="" id="ecoId">`;
+    productEcolabel.innerHTML += `<span data-bs-toggle="tooltip" title="${product.productEcoLabels[i].type}"><img class="bg-image hover-zoom" src="${product.productEcoLabels[i].imageLink}" alt="" id="ecoId"></span>`;
   }
 }
 
