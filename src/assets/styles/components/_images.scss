@@ -1,20 +1,30 @@
-.zoom:hover {
-  transform: scale(3);
-}
-
 .banner-img {
   max-height: 500px;
   object-fit: cover;
 }
-#ecoId{
-  width: 150px;
-  height: 150px;
-  padding: 0px;
 
-  object-fit: scale-down;
+#ecoId {
+  max-height: 60px;
+  object-fit: cover;
 }
 
-#ecoId:hover{
-  transform: scale(2);
+.product-eco-label-small {
+  max-height: 30px;
+  object-fit: cover;
 }
 
+.product-img {
+  max-height: 500px;
+}
+
+.product-img-small {
+  max-height: 70px;
+  width: auto;
+  object-fit: cover;
+}
+
+.product-img-medium {
+  max-height: 200px;
+  width: auto;
+  object-fit: cover;
+}

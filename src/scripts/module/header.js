@@ -16,7 +16,7 @@ async function updateDropdownMenuCategories() {
     let url = new URL(window.location.origin + "/" + productHtmlPage);
     url.searchParams.append(paramName, category.categoryId);
 
-    categoryUl.innerHTML += `<li><a class="dropdown-item" href="${url}">${category.categoryName}</a></li>`;
+    categoryUl.innerHTML += `<li><a class="dropdown-item" href="${url}">${category.name}</a></li>`;
   })
 }
 

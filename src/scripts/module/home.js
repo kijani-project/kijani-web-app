@@ -22,12 +22,12 @@ async function createCategoryBlocks() {
 }
 
 function createHeader(category) {
-  cardDiv.innerHTML += `<h3 class="text-center pb-xl-4">${category.categoryName}</h3>`;
+  cardDiv.innerHTML += `<h3 class="text-center pb-xl-4">${category.name}</h3>`;
 }
 
 function createBanner(category) {
   cardDiv.innerHTML += `<div class="pb-xl-3">
-    <img alt="${category.categoryName}" loading="lazy"
+    <img alt="${category.name}" loading="lazy"
          class="banner-img pb-5 w-100" src="${category.imageLink}">
   </div>`;
 }

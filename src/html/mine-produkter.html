@@ -47,13 +47,8 @@ ${ require('./partials/footer.html') }
 
               <div class="col-md-6">
                 <div class="mb-3">
-                  <label class="col-form-label" for="supplier-category">Kategori:</label>
-                  <select class="form-select" id="supplier-category"></select>
-                </div>
-
-                <div class="mb-3" hidden>
-                  <label class="col-form-label" for="supplier-subcategory" size="3">Underkategori:</label>
-                  <select class="form-select" id="supplier-subcategory" multiple></select>
+                  <label class="col-form-label" for="supplier-item-number">Vare nr.</label>
+                  <input class="form-control" id="supplier-item-number" inputmode="numeric" type="text">
                 </div>
 
                 <div class="mb-3">
@@ -62,31 +57,66 @@ ${ require('./partials/footer.html') }
                 </div>
 
                 <div class="mb-3">
+                  <label class="col-form-label" for="supplier-categories" size="3">Kategori</label>
+                  <select class="form-select" id="supplier-categories" multiple></select>
+                </div>
+
+                <div class="mb-3" hidden>
+                  <label class="col-form-label" for="supplier-sub-categories" size="3">Underkategori</label>
+                  <select class="form-select" id="supplier-sub-categories" multiple></select>
+                </div>
+
+                <div class="mb-3">
                   <label class="col-form-label" for="supplier-product-description">Produkt beskrivelse</label>
-                  <input class="form-control" id="supplier-product-description" type="text">
+                  <textarea class="form-control" id="supplier-product-description"></textarea>
+                </div>
+
+                <div class="mb-3">
+                  <label class="col-form-label" for="supplier-product-eco-labels" size="3">Eco labels</label>
+                  <select class="form-select" id="supplier-product-eco-labels" multiple></select>
                 </div>
 
               </div>
               <div class="col-md-6">
 
                 <div class="mb-3">
-                  <label class="col-form-label" for="supplier-item-number">Vare nr.</label>
-                  <input class="form-control" id="supplier-item-number" inputmode="numeric" type="text">
+                  <label class="col-form-label" for="supplier-product-eco-tests">Eco tests</label>
+                  <input class="form-control" id="supplier-product-eco-tests" type="text">
                 </div>
 
                 <div class="mb-3">
-                  <label class="col-form-label" for="supplier-co2-mesurability">CO2 målbarhed</label>
-                  <input class="form-control" id="supplier-co2-mesurability" type="text">
+                  <label class="col-form-label" for="supplier-co2-measurability">CO<sub>2</sub> målbarhed</label>
+                  <input class="form-control" id="supplier-co2-measurability" type="text">
                 </div>
 
                 <div class="mb-3">
-                  <label class="col-form-label" for="supplier-link">Link</label>
-                  <input class="form-control" id="supplier-link" type="text">
+                  <label class="col-form-label" for="supplier-brochure-link">Link</label>
+                  <input class="form-control" id="supplier-brochure-link" type="text">
                 </div>
 
                 <div class="mb-3">
-                  <label class="col-form-label" for="supplier-image">Image</label>
-                  <input class="form-control" id="supplier-image" type="text">
+                  <label class="col-form-label" for="supplier-image-link">Image</label>
+                  <input class="form-control" id="supplier-image-link" type="text">
+                </div>
+
+                <div class="mb-3">
+                  <label class="col-form-label" for="supplier-designers" size="3">Designers</label>
+                  <select class="form-select" id="supplier-designers" multiple></select>
+                </div>
+
+                <div class="mb-1">
+                  <label class="col-form-label" for="supplier-product-measurement-length">Length</label>
+                  <input class="form-control" id="supplier-product-measurement-length" type="text">
+                </div>
+
+                <div class="mb-1">
+                  <label class="col-form-label" for="supplier-product-measurement-length">Width</label>
+                  <input class="form-control" id="supplier-product-measurement-width" type="text">
+                </div>
+
+                <div class="mb-1">
+                  <label class="col-form-label" for="supplier-product-measurement-length">Height</label>
+                  <input class="form-control" id="supplier-product-measurement-height" type="text">
                 </div>
 
               </div>
@@ -98,7 +128,7 @@ ${ require('./partials/footer.html') }
 
       <div class="modal-footer">
         <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Luk</button>
-        <button class="btn btn-primary" data-bs-dismiss="modal" id="supplier-post-save" type="button">Gem product
+        <button class="btn btn-primary" data-bs-dismiss="modal" id="supplier-post-save" type="button">Opret product
         </button>
       </div>
 
