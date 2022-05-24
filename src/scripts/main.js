@@ -5,7 +5,12 @@ import 'src/scripts/config/config'
 import 'src/scripts/vendor/bootstrap'
 
 // Modules
-import 'src/scripts/module/header'
+if (document.querySelectorAll("#sign-in-page").length) {
+  import("src/scripts/module/sign-in")
+} else {
+  import("src/scripts/module/auth")
+  import ('src/scripts/module/header')
+}
 
 if (document.querySelectorAll("#supplier-page").length) {
   import("src/scripts/module/supplier")
