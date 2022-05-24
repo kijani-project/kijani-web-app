@@ -96,9 +96,17 @@ function createTable(products) {
      </tr>`;
 
   for (let product of products) {
-    let productEcoLabels = []; // Eco labels
-    Object.values(product.productEcoLabels).forEach(el => {
-      productEcoLabels.push(el.type);
+    let productEcoLabelsNew = [];
+    Object.values(product.productEcoLabels).forEach(productEcoLabel => {
+       productEcoLabelsNew.push(`
+        <span data-bs-toggle="tooltip" title="${productEcoLabel.type}">
+            <img class="bg-image product-eco-label-small" src="${productEcoLabel.imageLink}" alt="">
+        </span>`);
+    });
+
+    let productDesigners = [];
+    Object.values(product.designers).forEach(el => {
+      productDesigners.push(el.name);
     })
 
     let ecoTests = []; // Eco tests
@@ -108,10 +116,10 @@ function createTable(products) {
 
     table += `<tr id="supplier-id-${product.productId}" data-bs-toggle="collapse" data-bs-target="#collapseExample-${product.productId}" aria-expanded="false" aria-controls="collapseExample">
     <td>${product.productId}</td>
-    <td><img src="${product.imageLink}" class="zoom" alt="" height=70 width=70"></td>
+    <td><img src="${product.imageLink}" class="product-img-small" alt=""></td>
     <td>${product.itemNumber}</td>
     <td>${product.name}</td>
-    <td>${productEcoLabels.join(", ")}</td>
+    <td>${productEcoLabelsNew.join(" ")}</td>
     <td class="text-end">
        <i class="fa fa-sort-desc" aria-hidden="true"></i>
     </td>
@@ -120,18 +128,27 @@ function createTable(products) {
 
     <div class="row">
       <div class="col-md-2">
-        <img src="${product.imageLink}" class="float-start" alt="" height=200 width=200">
+        <img src="${product.imageLink}" class="float-start product-img-medium" alt="">
       </div>
       <div class="col-md-5">
           <h3>${product.name}</h3>
           <p>${product.description}</p>
       </div>
       <div class="col-md-3">
-          <p>Designer: <strong>${product.designer}</strong></p>
-          <p>CO2 measurability: <strong>${product.co2Measurability}</strong></p>
-          <p>ECO test: <strong>${ecoTests.join(", ")}</strong></p>
-          <p><a href="${product.brochureLink}">Hent brochure</a></p>
+      <dl class="row">
+        <dt class="col-sm-6">Designer</dt>
+        <dd class="col-sm-6">${productDesigners.join(" & ")}</dd>
+        <dt class="col-sm-6">Bredde:</dt>
+        <dd class="col-sm-6">${product.measurement.width / 100} cm</dd>
+        <dt class="col-sm-6">Dybde:</dt>
+        <dd class="col-sm-6">${product.measurement.length / 100} cm</dd>
+        <dt class="col-sm-6">Højde:</dt>
+        <dd class="col-sm-6">${product.measurement.height / 100} cm</dd>
+        <dt class="col-sm-6">Miljø-certificering</dt>
+        <dd class="col-sm-6">${productEcoLabelsNew.join(" ")}</dd>
+      </dl>
       </div>
+
     <div class="col-md-2">
       <button type="button" class="btn btn-danger pull-right delete-product">Slet</button>
       <button type="button" data-bs-target="#supplier-update-product" data-bs-toggle="modal" class="btn btn-primary pull-right edit-product mx-2 ">Redigér</button>
