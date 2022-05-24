@@ -29,8 +29,9 @@ async function getProduct() {
   let productImage = document.getElementById("product-image");
   productImage.setAttribute("src", product.imageLink);
   let productEcolabel = document.getElementById("product-ecolabel");
-  productEcolabel.innerHTML = `<img src="${product.productEcoLabels[0].imageLink}"id="ecoId">`
-
+  productEcolabel.innerHTML = `<span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="${product.productEcoLabels.type}">
+  <img src="${product.productEcoLabels[0].imageLink}" alt="" id="ecoId">
+  </span>`;
 
 
 //Todo loop to show all ecolabels
@@ -42,7 +43,6 @@ async function getProduct() {
   //let productEcoLabels = document.getElementById("product-ecolabelImg");
   //productEcoLabels.setAttribute("src", product.productEcoLabels[0].imageLink);
   //ecolabelImg.innerHTML=`<img src="${productEcoLabels.imageLink}">`
-
 
 
 }

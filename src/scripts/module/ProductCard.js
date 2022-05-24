@@ -10,7 +10,7 @@ export class ProductCard {
     let prodId = this.product.productId;
     return `<div class="col-md-${12 / productsPerRow} pb-xl-5">
     <div class="card mx-auto">
-      <a href="http://192.168.0.4:8081/produkt-info.html?productId=${prodId}"><img src="${this.product.imageLink}" class="card-img-top" alt="" loading="lazy"></a>
+      <a href="${window.location.origin}/produkt-info.html?productId=${prodId}"><img src="${this.product.imageLink}" class="card-img-top" alt="" loading="lazy"></a>
         <div class="card-body">
           <p class="card-text"><strong>${this.product.name}</strong></p>
           <p class="card-text">${description}</p>
